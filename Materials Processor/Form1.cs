@@ -25,11 +25,13 @@ using ExcelDataReader;
 using ExcelDataReader.Core;
 using ExcelDataReader.Exceptions;
 using ExcelDataReader.Log;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 
 namespace Materials_Processor
 {
-        public partial class Form1 : Form
+        public partial class Form1 : MaterialForm
     {
         //PD_EDWDataSet.jobsTableAdapter jobschcker = new PD_EDWDataSet.jobsTableAdapter();
         MTO_Report_Processor.PD_EDWDataSet1TableAdapters.isoLogTableAdapter isologchecker = new MTO_Report_Processor.PD_EDWDataSet1TableAdapters.isoLogTableAdapter();
@@ -59,6 +61,19 @@ namespace Materials_Processor
 
             
             InitializeComponent();
+            MaterialForm f = new MaterialForm();
+            MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+
+            // Configure color schema
+            materialSkinManager.ColorScheme = new ColorScheme(
+                Primary.BlueGrey800, Primary.BlueGrey900,
+                Primary.BlueGrey500, Accent.LightBlue200,
+                TextShade.WHITE
+            );
+
+
             typeof(DataGridView).InvokeMember("DoubleBuffered",
             BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
             null, this.dataGridView1, new object[] { true });
