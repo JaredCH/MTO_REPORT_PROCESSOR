@@ -27,7 +27,7 @@ using ExcelDataReader.Exceptions;
 using ExcelDataReader.Log;
 using MaterialSkin;
 using MaterialSkin.Controls;
-
+using System.Drawing;
 
 namespace Materials_Processor
 {
@@ -37,6 +37,7 @@ namespace Materials_Processor
         MTO_Report_Processor.PD_EDWDataSet1TableAdapters.isoLogTableAdapter isologchecker = new MTO_Report_Processor.PD_EDWDataSet1TableAdapters.isoLogTableAdapter();
 
 
+        bool switcher = false;
 
 
 
@@ -64,12 +65,12 @@ namespace Materials_Processor
             MaterialForm f = new MaterialForm();
             MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
 
             // Configure color schema
             materialSkinManager.ColorScheme = new ColorScheme(
-                Primary.BlueGrey800, Primary.BlueGrey900,
-                Primary.BlueGrey500, Accent.LightBlue200,
+                Primary.Blue800, Primary.Blue900,
+                Primary.Blue500, Accent.LightBlue200,
                 TextShade.WHITE
             );
 
@@ -107,6 +108,8 @@ null, this.dataGridView2, new object[] { true });
                 return dataTable;
             }
         }
+
+
 
 
         public DataTable ConvertToDataTable(string filePath, int numberOfColumns)
@@ -297,8 +300,15 @@ null, this.dataGridView2, new object[] { true });
 
 
         private void Form1_Load(object sender, EventArgs e)
-        {          
+        {
             // right click option to set "take off method" options for IDF, PCF, Both, or Manual.
+            dataGridView1.DefaultCellStyle.BackColor = Color.White;
+            dataGridView1.GridColor = Color.Black;
+            dataGridView1.DefaultCellStyle.ForeColor = Color.Black;
+
+            dataGridView2.DefaultCellStyle.BackColor = Color.White;
+            dataGridView2.GridColor = Color.Black;
+            dataGridView2.DefaultCellStyle.ForeColor = Color.Black;
         }
 
 
@@ -352,7 +362,7 @@ null, this.dataGridView2, new object[] { true });
 
         private void isoLogCheckToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            label3.Visible = true;
+            pictureBox2.Visible = true;
             backgroundWorker1.RunWorkerAsync();
         }
 
@@ -630,18 +640,19 @@ null, this.dataGridView2, new object[] { true });
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            string vlvfilter = Microsoft.VisualBasic.Interaction.InputBox("What to filter for", "Valve Tags", "Default");
-            string tagornum = Microsoft.VisualBasic.Interaction.InputBox("Either type 'Tag' or a count of characters to use from the end of the description", "Valve Tags", "Default");
+            string vlvfilter = Microsoft.VisualBasic.Interaction.InputBox("Type the string of characters to filter for; ex: 'VA', 'VLV', 'Valve'.", "Valve Tags", "");
+            string tagornum = Microsoft.VisualBasic.Interaction.InputBox("Either type 'Tag' to use the Item_Code or a count of characters to use from the end of the description.", "Valve Tags", "Default");
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 try
                 {
+
                     vlvfilter = vlvfilter.ToUpper();
                     tagornum = tagornum.ToUpper();
+
                     string descfiltercheck = row.Cells["Description"].Value.ToString();
                     if (descfiltercheck.Contains(vlvfilter))
                     {
-
 
                         switch (tagornum)
                         {
@@ -754,6 +765,7 @@ null, this.dataGridView2, new object[] { true });
 
         private void generateSTOFromMTOToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             DataTable dt = new DataTable();
             dt.Columns.Add("ID");
             dt.Columns.Add( "Job_No");
@@ -855,8 +867,11 @@ null, this.dataGridView2, new object[] { true });
                 }
             dt.AcceptChanges();
             this.dataGridView2.DataSource = dt;
+
+
             dataGridView2.Refresh();
-            
+            MessageBox.Show("Please make sure to set the 'Take off Method' in the STO report below.", "STO Report Reminder", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            contextMenuStrip2.Show(Cursor.Position);
         }
 
         private void emailSTOToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1392,9 +1407,10 @@ null, this.dataGridView2, new object[] { true });
         }
 
         private void newToolStripMenuItem1_Click(object sender, EventArgs e)
-        { 
-            jobnum = Microsoft.VisualBasic.Interaction.InputBox("Job Number", "New Report Info", "Default");
-            trans = Microsoft.VisualBasic.Interaction.InputBox("Transmittal", "New Report Info", "Default");
+        {
+            
+            jobnum = Microsoft.VisualBasic.Interaction.InputBox("Job Number" + Environment.NewLine + "(7 Digit Job Number)", "New Report Info", "");
+            trans = Microsoft.VisualBasic.Interaction.InputBox("Transmittal" + Environment.NewLine + " (Please only type the 3 digit Transmittal number)", "New Report Info", "");
 
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
@@ -1421,6 +1437,7 @@ null, this.dataGridView2, new object[] { true });
             // {
             // this.GetDataBy()
             //}
+
             dataGridView1.Columns["Spool Number"].Visible = false;
             dataGridView1.Columns["Material Code"].Visible = false;
             dataGridView1.Columns["recdate"].Visible = false;
@@ -1428,6 +1445,24 @@ null, this.dataGridView2, new object[] { true });
             dataGridView1.Columns["revnum"].Visible = false;
             dataGridView1.Columns["linesize"].Visible = false;
             dataGridView1.Columns["index"].Visible = false;
+
+            string oldtext1 = "\"";
+            string newtext1 = "";
+            string oldtext2 = ",";
+            string newtext2 = "";
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                try
+                {
+                    string replaceing = row.Cells["Description"].Value.ToString();
+                    row.Cells["Description"].Value = replaceing.Replace(oldtext1, newtext1);
+                    row.Cells["Description"].Value = replaceing.Replace(oldtext2, newtext2);
+                }
+                catch
+                { }
+            }
+
+
             dataGridView1.AutoResizeColumns();
             dataGridView2.AutoResizeColumns();
             String timeStamp = GetTimestamp(DateTime.Now);
@@ -1603,7 +1638,111 @@ null, this.dataGridView2, new object[] { true });
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            label3.Visible = false;
+            pictureBox2.Visible = false;
+        }
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (switcher == false)
+            {
+                MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
+                materialSkinManager.AddFormToManage(this);
+                materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+
+                // Configure color schema
+                materialSkinManager.ColorScheme = new ColorScheme(
+                    Primary.BlueGrey800, Primary.BlueGrey900,
+                    Primary.BlueGrey500, Accent.LightBlue200,
+                    TextShade.WHITE
+                );
+                dataGridView1.DefaultCellStyle.BackColor = Color.DimGray;
+                dataGridView1.GridColor = Color.WhiteSmoke;
+                dataGridView1.DefaultCellStyle.ForeColor = Color.White;
+                dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkGray;
+                dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                dataGridView1.RowHeadersDefaultCellStyle.BackColor = Color.DarkGray;
+                dataGridView1.RowHeadersDefaultCellStyle.ForeColor = Color.White;
+                dataGridView1.EnableHeadersVisualStyles = false;
+                contextMenuStrip1.ForeColor = Color.White;
+                contextMenuStrip2.ForeColor = Color.White;
+
+                label1.ForeColor = Color.White;
+                label2.ForeColor = Color.White;
+                //label3.ForeColor = Color.White;
+
+                dataGridView2.DefaultCellStyle.BackColor = Color.DimGray;
+                dataGridView2.GridColor = Color.WhiteSmoke;
+                dataGridView2.DefaultCellStyle.ForeColor = Color.White;
+                dataGridView2.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkGray;
+                dataGridView2.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                dataGridView2.RowHeadersDefaultCellStyle.BackColor = Color.DarkGray;
+                dataGridView2.RowHeadersDefaultCellStyle.ForeColor = Color.White;
+                dataGridView2.EnableHeadersVisualStyles = false;
+                contextMenuStrip1.ForeColor = Color.White;
+                contextMenuStrip2.ForeColor = Color.White;
+            }
+            if (switcher == true)
+            {
+                MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
+                materialSkinManager.AddFormToManage(this);
+                materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+
+                // Configure color schema
+                materialSkinManager.ColorScheme = new ColorScheme(
+                    Primary.Blue800, Primary.Blue900,
+                    Primary.Blue500, Accent.LightBlue200,
+                    TextShade.WHITE
+                );
+
+
+
+                dataGridView1.DefaultCellStyle.BackColor = Color.White;
+                dataGridView1.GridColor = Color.Black;
+                dataGridView1.DefaultCellStyle.ForeColor = Color.Black;
+                dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
+                dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+                dataGridView1.RowHeadersDefaultCellStyle.BackColor = Color.White;
+                dataGridView1.RowHeadersDefaultCellStyle.ForeColor = Color.Black;
+                dataGridView1.EnableHeadersVisualStyles = false;
+                contextMenuStrip1.ForeColor = Color.Black;
+                contextMenuStrip2.ForeColor = Color.White;
+
+                label1.ForeColor = Color.Black;
+                label2.ForeColor = Color.Black;
+                //label3.ForeColor = Color.Black;
+
+                dataGridView2.DefaultCellStyle.BackColor = Color.White;
+                dataGridView2.GridColor = Color.Black;
+                dataGridView2.DefaultCellStyle.ForeColor = Color.Black;
+                dataGridView2.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
+                dataGridView2.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+                dataGridView2.RowHeadersDefaultCellStyle.BackColor = Color.White;
+                dataGridView2.RowHeadersDefaultCellStyle.ForeColor = Color.Black;
+                dataGridView2.EnableHeadersVisualStyles = false;
+                contextMenuStrip1.ForeColor = Color.Black;
+                contextMenuStrip2.ForeColor = Color.Black;
+
+            }
+            switcher = !switcher;
+            }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"V:\MTO\exe tools\MTO Report Processor\MTO_Report_Tool_Example.gif");
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"V:\MTO\exe tools\MTO Report Processor\MTO_Report_Tool_Valves.gif");
+        }
+
+        private void findAndReplaceTutorialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"V:\MTO\exe tools\MTO Report Processor\MTO_Report_Tool_Find_and_Replace.gif");
         }
 
         public static String GetTimestamp(DateTime value)

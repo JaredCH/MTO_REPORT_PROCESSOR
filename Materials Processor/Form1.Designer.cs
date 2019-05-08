@@ -56,14 +56,10 @@
             this.findAndReplaceRefDwgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem17 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.isoLogCheckToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -95,11 +91,16 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tutorialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.findAndReplaceTutorialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -110,6 +111,8 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,13 +122,13 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.DimGray;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.LightGray;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
-            this.dataGridView1.GridColor = System.Drawing.Color.DimGray;
-            this.dataGridView1.Location = new System.Drawing.Point(9, 3);
+            this.dataGridView1.GridColor = System.Drawing.Color.White;
+            this.dataGridView1.Location = new System.Drawing.Point(6, 3);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1106, 274);
+            this.dataGridView1.Size = new System.Drawing.Size(1106, 269);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.DataSourceChanged += new System.EventHandler(this.dataGridViewDSourceChanged);
             // 
@@ -191,10 +194,11 @@
             this.functionsToolStripMenuItem,
             this.sendSTOToolStripMenuItem,
             this.undoToolStripMenuItem,
-            this.jobSpecificRulesToolStripMenuItem});
+            this.jobSpecificRulesToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(327, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(492, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -287,14 +291,10 @@
             this.findAndReplaceRefDwgToolStripMenuItem,
             this.toolStripMenuItem13,
             this.toolStripMenuItem8,
-            this.toolStripMenuItem12,
             this.toolStripSeparator6,
             this.toolStripMenuItem16,
             this.toolStripMenuItem17,
             this.toolStripMenuItem18,
-            this.toolStripSeparator2,
-            this.toolStripMenuItem7,
-            this.toolStripMenuItem14,
             this.toolStripSeparator1,
             this.isoLogCheckToolStripMenuItem,
             this.toolStripMenuItem1,
@@ -344,13 +344,6 @@
             this.toolStripMenuItem8.Text = "Insert MK- Piecemark";
             this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripMenuItem8_Click);
             // 
-            // toolStripMenuItem12
-            // 
-            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(233, 22);
-            this.toolStripMenuItem12.Text = "Copy Pcmk to field";
-            this.toolStripMenuItem12.Click += new System.EventHandler(this.toolStripMenuItem12_Click);
-            // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
@@ -358,40 +351,24 @@
             // 
             // toolStripMenuItem16
             // 
+            this.toolStripMenuItem16.Enabled = false;
             this.toolStripMenuItem16.Name = "toolStripMenuItem16";
             this.toolStripMenuItem16.Size = new System.Drawing.Size(233, 22);
             this.toolStripMenuItem16.Text = "Cell - Prepend";
             // 
             // toolStripMenuItem17
             // 
+            this.toolStripMenuItem17.Enabled = false;
             this.toolStripMenuItem17.Name = "toolStripMenuItem17";
             this.toolStripMenuItem17.Size = new System.Drawing.Size(233, 22);
             this.toolStripMenuItem17.Text = "Cell - Append";
             // 
             // toolStripMenuItem18
             // 
+            this.toolStripMenuItem18.Enabled = false;
             this.toolStripMenuItem18.Name = "toolStripMenuItem18";
             this.toolStripMenuItem18.Size = new System.Drawing.Size(233, 22);
             this.toolStripMenuItem18.Text = "Cell - Find and replace";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(230, 6);
-            // 
-            // toolStripMenuItem7
-            // 
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(233, 22);
-            this.toolStripMenuItem7.Text = "Remove Commas";
-            this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
-            // 
-            // toolStripMenuItem14
-            // 
-            this.toolStripMenuItem14.Name = "toolStripMenuItem14";
-            this.toolStripMenuItem14.Size = new System.Drawing.Size(233, 22);
-            this.toolStripMenuItem14.Text = "Remove Char(\")";
-            this.toolStripMenuItem14.Click += new System.EventHandler(this.toolStripMenuItem14_Click);
             // 
             // toolStripSeparator1
             // 
@@ -562,12 +539,13 @@
             this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView2.BackgroundColor = System.Drawing.Color.DimGray;
+            this.dataGridView2.BackgroundColor = System.Drawing.Color.LightGray;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.ContextMenuStrip = this.contextMenuStrip2;
-            this.dataGridView2.Location = new System.Drawing.Point(9, 29);
+            this.dataGridView2.GridColor = System.Drawing.Color.White;
+            this.dataGridView2.Location = new System.Drawing.Point(6, 23);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(1106, 274);
+            this.dataGridView2.Size = new System.Drawing.Size(1106, 276);
             this.dataGridView2.TabIndex = 7;
             // 
             // contextMenuStrip2
@@ -591,28 +569,28 @@
             // iDFToolStripMenuItem
             // 
             this.iDFToolStripMenuItem.Name = "iDFToolStripMenuItem";
-            this.iDFToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.iDFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.iDFToolStripMenuItem.Text = "IDF";
             this.iDFToolStripMenuItem.Click += new System.EventHandler(this.iDFToolStripMenuItem_Click);
             // 
             // pCFToolStripMenuItem
             // 
             this.pCFToolStripMenuItem.Name = "pCFToolStripMenuItem";
-            this.pCFToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.pCFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pCFToolStripMenuItem.Text = "PCF";
             this.pCFToolStripMenuItem.Click += new System.EventHandler(this.pCFToolStripMenuItem_Click);
             // 
             // iDFPCFToolStripMenuItem
             // 
             this.iDFPCFToolStripMenuItem.Name = "iDFPCFToolStripMenuItem";
-            this.iDFPCFToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.iDFPCFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.iDFPCFToolStripMenuItem.Text = "IDF / PCF";
             this.iDFPCFToolStripMenuItem.Click += new System.EventHandler(this.iDFPCFToolStripMenuItem_Click);
             // 
             // manualToolStripMenuItem
             // 
             this.manualToolStripMenuItem.Name = "manualToolStripMenuItem";
-            this.manualToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.manualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.manualToolStripMenuItem.Text = "Manual";
             this.manualToolStripMenuItem.Click += new System.EventHandler(this.manualToolStripMenuItem_Click);
             // 
@@ -638,15 +616,15 @@
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer1.Size = new System.Drawing.Size(1118, 583);
-            this.splitContainer1.SplitterDistance = 280;
+            this.splitContainer1.SplitterDistance = 277;
             this.splitContainer1.TabIndex = 10;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(10, 7);
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(10, 5);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 16);
             this.label2.TabIndex = 12;
@@ -657,40 +635,17 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(10, 68);
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(10, 73);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(125, 16);
             this.label1.TabIndex = 11;
             this.label1.Text = "Material Take off";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(323, 40);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(426, 24);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "*Please wait while external data is recieved.*";
-            this.label3.Visible = false;
-            // 
             // fileSystemWatcher1
             // 
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::MTO_Report_Processor.Properties.Resources.epic_logo_8_5in;
-            this.pictureBox1.Location = new System.Drawing.Point(934, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(184, 72);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 13;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
             // 
             // backgroundWorker1
             // 
@@ -702,21 +657,92 @@
             this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
             this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox3.Image = global::MTO_Report_Processor.Properties.Resources.procurement_icon;
+            this.pictureBox3.Location = new System.Drawing.Point(13, 26);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(51, 38);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 15;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.Image = global::MTO_Report_Processor.Properties.Resources.preloader;
+            this.pictureBox2.Location = new System.Drawing.Point(396, -9);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(268, 83);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 14;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Visible = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::MTO_Report_Processor.Properties.Resources.epic_logo_8_5in;
+            this.pictureBox1.Location = new System.Drawing.Point(946, 23);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(172, 61);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 13;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tutorialToolStripMenuItem,
+            this.toolStripMenuItem5,
+            this.findAndReplaceTutorialToolStripMenuItem});
+            this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
+            // tutorialToolStripMenuItem
+            // 
+            this.tutorialToolStripMenuItem.Name = "tutorialToolStripMenuItem";
+            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.tutorialToolStripMenuItem.Text = "General Tutorial";
+            this.tutorialToolStripMenuItem.Click += new System.EventHandler(this.tutorialToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(212, 22);
+            this.toolStripMenuItem5.Text = "Valve Tutorial";
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
+            // 
+            // findAndReplaceTutorialToolStripMenuItem
+            // 
+            this.findAndReplaceTutorialToolStripMenuItem.Name = "findAndReplaceTutorialToolStripMenuItem";
+            this.findAndReplaceTutorialToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.findAndReplaceTutorialToolStripMenuItem.Text = "Find and Replace Tutorial";
+            this.findAndReplaceTutorialToolStripMenuItem.Click += new System.EventHandler(this.findAndReplaceTutorialToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1118, 684);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "MTO Report Processor";
+            this.Text = "             MTO Report Processor";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -730,6 +756,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -756,7 +784,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem jobSpecificRulesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem generateSTOFromMTOToolStripMenuItem;
@@ -768,8 +795,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.ToolStripMenuItem pcmkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem returnToOriginalSortOrderToolStripMenuItem;
@@ -779,9 +804,7 @@
         private System.Windows.Forms.ToolStripMenuItem getCountOfDistinctItemsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
         private System.Windows.Forms.ToolStripMenuItem getCountOfISOsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem pcmkToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
@@ -807,6 +830,12 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tutorialToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem findAndReplaceTutorialToolStripMenuItem;
     }
 }
 

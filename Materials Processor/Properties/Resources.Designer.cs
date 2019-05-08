@@ -63,6 +63,26 @@ namespace MTO_Report_Processor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _04de2e31234507_564a1d23645bf {
+            get {
+                object obj = ResourceManager.GetObject("04de2e31234507_564a1d23645bf", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _09b24e31234507_564a1d23c07b4 {
+            get {
+                object obj = ResourceManager.GetObject("09b24e31234507_564a1d23c07b4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _4V0b {
             get {
                 object obj = ResourceManager.GetObject("4V0b", resourceCulture);
@@ -86,6 +106,36 @@ namespace MTO_Report_Processor.Properties {
         internal static System.Drawing.Bitmap giphy {
             get {
                 object obj = ResourceManager.GetObject("giphy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap loader {
+            get {
+                object obj = ResourceManager.GetObject("loader", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap preloader {
+            get {
+                object obj = ResourceManager.GetObject("preloader", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap procurement_icon {
+            get {
+                object obj = ResourceManager.GetObject("procurement_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -23,7 +23,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\epichqfs\data\Materials\MTO\exe tools\MTO Report Processor\</InstallUrl>
-    <ApplicationRevision>45</ApplicationRevision>
+    <ApplicationRevision>57</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -59,6 +59,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>procurement_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AdvancedDataGridView, Version=0.1.0.10, Culture=neutral, processorArchitecture=MSIL">
@@ -340,6 +343,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\4V0b.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\09b24e31234507_564a1d23c07b4.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loader.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\04de2e31234507_564a1d23645bf.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="procurement_icon.ico" />
+    <None Include="Resources\preloader.gif" />
+    <None Include="Resources\procurement_icon.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
