@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using Materials_Processor;
 using System.Collections.Generic;
+using System.Deployment.Application;
 
 using Excel = Microsoft.Office.Interop.Excel;
 using MTO_Report_Processor;
@@ -37,9 +38,10 @@ namespace Materials_Processor
         MTO_Report_Processor.PD_EDWDataSet1TableAdapters.isoLogTableAdapter isologchecker = new MTO_Report_Processor.PD_EDWDataSet1TableAdapters.isoLogTableAdapter();
 
 
-        bool switcher = false;
+        bool switcher = MTO_Report_Processor.Properties.Settings.Default.Theme;
 
 
+        DataTable dataTable3 = new DataTable();
 
         List<string> new_ISOS = new List<string>();
         public Form1(List<string>ISOS)
@@ -59,9 +61,11 @@ namespace Materials_Processor
         {
 
 
-
             
+
             InitializeComponent();
+            DisplayChangeLog();
+
             MaterialForm f = new MaterialForm();
             MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
@@ -82,6 +86,7 @@ namespace Materials_Processor
 BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
 null, this.dataGridView2, new object[] { true });
             System.IO.Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\MTO Report Processor");
+            
         }
 
 
@@ -110,6 +115,16 @@ null, this.dataGridView2, new object[] { true });
         }
 
 
+        private void DisplayChangeLog()
+        {
+            if (!ApplicationDeployment.IsNetworkDeployed)
+                return;
+
+            if (!ApplicationDeployment.CurrentDeployment.IsFirstRun)
+                return;
+
+            MessageBox.Show("1.) Added Individual cell modification: Cell Prepend/Append/Find-And-Replace." + Environment.NewLine  + Environment.NewLine + "2.) Consolidate Specific Function." + Environment.NewLine + Environment.NewLine +"3.) Added an Undo / Reset Report option." + Environment.NewLine + Environment.NewLine + "4.) Added Help section with Tutorials." + Environment.NewLine + Environment.NewLine + "5.) Included Light and Dark themes, click the Epic Logo to toggle." + Environment.NewLine + Environment.NewLine + "6.) Added Font Size Toggle up/down for the data grids.", "Change Log", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
 
         public DataTable ConvertToDataTable(string filePath, int numberOfColumns)
@@ -302,15 +317,33 @@ null, this.dataGridView2, new object[] { true });
         private void Form1_Load(object sender, EventArgs e)
         {
             // right click option to set "take off method" options for IDF, PCF, Both, or Manual.
-            dataGridView1.DefaultCellStyle.BackColor = Color.White;
-            dataGridView1.GridColor = Color.Black;
-            dataGridView1.DefaultCellStyle.ForeColor = Color.Black;
+            //dataGridView1.DefaultCellStyle.BackColor = Color.White;
+           // dataGridView1.GridColor = Color.Black;
+           // dataGridView1.DefaultCellStyle.ForeColor = Color.Black;
 
-            dataGridView2.DefaultCellStyle.BackColor = Color.White;
-            dataGridView2.GridColor = Color.Black;
-            dataGridView2.DefaultCellStyle.ForeColor = Color.Black;
+          //  dataGridView2.DefaultCellStyle.BackColor = Color.White;
+           // dataGridView2.GridColor = Color.Black;
+          //  dataGridView2.DefaultCellStyle.ForeColor = Color.Black;
+
+            label3.Text = char.ConvertFromUtf32(0x2191);
+            label4.Text = char.ConvertFromUtf32(0x2193);
+            //switcher = MTO_Report_Processor.Properties.Settings.Default.Theme;
+            ThemeChanger();
+
+
         }
 
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            MTO_Report_Processor.Properties.Settings.Default.Theme = switcher;
+            MTO_Report_Processor.Properties.Settings.Default.Save();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+           MTO_Report_Processor.Properties.Settings.Default.Theme = switcher;
+            MTO_Report_Processor.Properties.Settings.Default.Save();
+        }
 
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -677,6 +710,7 @@ null, this.dataGridView2, new object[] { true });
                 { }
 
             }
+            
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
@@ -1150,6 +1184,7 @@ null, this.dataGridView2, new object[] { true });
                 catch
                 { }
             }
+            
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -1428,7 +1463,7 @@ null, this.dataGridView2, new object[] { true });
             };
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                DataTable dataTable3 = new DataTable();
+                
                 dataTable3 = ConvertToDataTable(openFileDialog1.FileName, 1);
                 dataGridView1.DataSource = dataTable3;
 
@@ -1465,6 +1500,7 @@ null, this.dataGridView2, new object[] { true });
 
             dataGridView1.AutoResizeColumns();
             dataGridView2.AutoResizeColumns();
+            dataTable3.AcceptChanges();
             String timeStamp = GetTimestamp(DateTime.Now);
             if (File.Exists(@"V:\MTO\Spoolgen\Reports\Original_Reports\Material_" + jobnum + "_" + trans + ".csv"))
             {
@@ -1640,7 +1676,9 @@ null, this.dataGridView2, new object[] { true });
         {
             pictureBox2.Visible = false;
         }
-        private void pictureBox1_Click(object sender, EventArgs e)
+
+
+        private void ThemeChanger()
         {
             if (switcher == false)
             {
@@ -1667,6 +1705,8 @@ null, this.dataGridView2, new object[] { true });
 
                 label1.ForeColor = Color.White;
                 label2.ForeColor = Color.White;
+                label3.ForeColor = Color.White;
+                label4.ForeColor = Color.White;
                 //label3.ForeColor = Color.White;
 
                 dataGridView2.DefaultCellStyle.BackColor = Color.DimGray;
@@ -1705,9 +1745,13 @@ null, this.dataGridView2, new object[] { true });
                 dataGridView1.EnableHeadersVisualStyles = false;
                 contextMenuStrip1.ForeColor = Color.Black;
                 contextMenuStrip2.ForeColor = Color.White;
+                 
+                
 
                 label1.ForeColor = Color.Black;
                 label2.ForeColor = Color.Black;
+                label3.ForeColor = Color.Black;
+                label4.ForeColor = Color.Black;
                 //label3.ForeColor = Color.Black;
 
                 dataGridView2.DefaultCellStyle.BackColor = Color.White;
@@ -1722,8 +1766,22 @@ null, this.dataGridView2, new object[] { true });
                 contextMenuStrip2.ForeColor = Color.Black;
 
             }
+            
+        }
+    
+
+
+
+
+
+    private void pictureBox1_Click(object sender, EventArgs e)
+    {
             switcher = !switcher;
-            }
+            ThemeChanger();
+
+    }
+
+            
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1743,6 +1801,69 @@ null, this.dataGridView2, new object[] { true });
         private void findAndReplaceTutorialToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(@"V:\MTO\exe tools\MTO Report Processor\MTO_Report_Tool_Find_and_Replace.gif");
+        }
+
+
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Font = new Font("Microsoft Sans Serif", dataGridView1.Font.Size + 1);
+            dataGridView2.Font = new Font("Microsoft Sans Serif", dataGridView1.Font.Size + 1);
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Font = new Font("Microsoft Sans Serif", dataGridView1.Font.Size - 1);
+            dataGridView2.Font = new Font("Microsoft Sans Serif", dataGridView1.Font.Size - 1);
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dataTable3.RejectChanges();
+        }
+
+        private void addRowToSTOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem16_Click(object sender, EventArgs e)
+        {
+            string ppendtext = Microsoft.VisualBasic.Interaction.InputBox("Text to Prepend", "Prepend Cell - Selected Cells", "Default");
+            foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
+            {
+                cell.Value = ppendtext + cell.Value.ToString();
+            }
+        }
+
+        private void toolStripMenuItem17_Click(object sender, EventArgs e)
+        {
+            string ppendtext = Microsoft.VisualBasic.Interaction.InputBox("Text to Prepend", "Prepend Cell - Selected Cells", "Default");
+            foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
+            {
+                cell.Value = cell.Value.ToString() + ppendtext;
+            }
+        }
+
+        private void toolStripMenuItem18_Click(object sender, EventArgs e)
+        {
+            string oldtext = Microsoft.VisualBasic.Interaction.InputBox("Text to Replace", "Find and Replace - RefDwg", "Default");
+            string newtext = Microsoft.VisualBasic.Interaction.InputBox("Replacing text with", "Find and Replace - RefDwg", "Default");
+            foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
+            {
+                try
+                {
+                    string replaceing = cell.Value.ToString();
+                    cell.Value = replaceing.Replace(oldtext, newtext);
+                }
+                catch
+                { }
+            }
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
 
         public static String GetTimestamp(DateTime value)

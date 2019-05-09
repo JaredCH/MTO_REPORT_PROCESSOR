@@ -118,37 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="4V0b" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4V0b.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="epic_logo_8_5in" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\epic_logo_8_5in.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tenor1J21TEML" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tenor1J21TEML.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="loader" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\loader.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tenorGG5AZKVO" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tenorGG5AZKVO.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="preloader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\preloader.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="procurement_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\procurement_icon.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="epic_logo_8_5in" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\epic_logo_8_5in.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="giphy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\giphy.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="04de2e31234507_564a1d23645bf" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\04de2e31234507_564a1d23645bf.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tenorDF60MJXZ" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tenorDF60MJXZ.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="09b24e31234507_564a1d23c07b4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\09b24e31234507_564a1d23c07b4.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="preloader" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\preloader.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="up-arrow-vector-icon-isolated-on-transparent-background-up-arrow-transparency-logo-concept-R1PKJM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\up-arrow-vector-icon-isolated-on-transparent-background-up-arrow-transparency-logo-concept-R1PKJM.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
