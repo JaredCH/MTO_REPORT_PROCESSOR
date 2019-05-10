@@ -335,6 +335,9 @@ null, this.dataGridView2, new object[] { true });
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             MTO_Report_Processor.Properties.Settings.Default.Theme = switcher;
+            MTO_Report_Processor.Properties.Settings.Default.isotakeofflist.Clear();
+            MTO_Report_Processor.Properties.Settings.Default.IsoList.Clear();
+            MTO_Report_Processor.Properties.Settings.Default.JobNum = "";
             MTO_Report_Processor.Properties.Settings.Default.Save();
         }
 
@@ -1875,12 +1878,17 @@ null, this.dataGridView2, new object[] { true });
             dataTable3.AcceptChanges();
             dataGridView1.Refresh();
 
-            foreach (DataRow row in dataTable3.Rows)
+            DataView view = new DataView(dataTable3);
+            DataTable distinctValues = view.ToTable(true, "Pipeline_Reference");
+            
+            MTO_Report_Processor.Properties.Settings.Default.isotakeofflist.Clear();
+
+            foreach (DataRow row in distinctValues.Rows)
             {
                 MTO_Report_Processor.Properties.Settings.Default.isotakeofflist.Add(row["Pipeline_Reference"].ToString());
             }
 
-           
+
             var myForm = new IsoLogForm();
             myForm.Show();
         }
