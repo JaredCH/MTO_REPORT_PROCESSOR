@@ -23,7 +23,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\epichqfs\Data\Materials\MTO\exe tools\MTO Report Processor\</InstallUrl>
-    <ApplicationRevision>86</ApplicationRevision>
+    <ApplicationRevision>87</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -123,6 +123,12 @@
     <Compile Include="IsoLogForm.Designer.cs">
       <DependentUpon>IsoLogForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IsoLog_Comparison.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IsoLog_Comparison.Designer.cs">
+      <DependentUpon>IsoLog_Comparison.cs</DependentUpon>
+    </Compile>
     <Compile Include="PD_EDWDataSet.cs">
       <DependentUpon>PD_EDWDataSet.xsd</DependentUpon>
     </Compile>
@@ -152,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IsoLogForm.resx">
       <DependentUpon>IsoLogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IsoLog_Comparison.resx">
+      <DependentUpon>IsoLog_Comparison.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

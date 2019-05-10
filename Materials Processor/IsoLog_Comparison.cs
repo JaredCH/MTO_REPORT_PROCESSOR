@@ -1,34 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using Materials_Processor;
-
 using MaterialSkin;
 using MaterialSkin.Controls;
 using System.Drawing;
 
+
 namespace MTO_Report_Processor
 {
-    public partial class IsoLogForm : MaterialForm
+    public partial class IsoLog_Comparison : MaterialForm
     {
-
         bool switcher = MTO_Report_Processor.Properties.Settings.Default.Theme;
-
-        public DataTable Table { get; set; }
-        public DataTable dt = new DataTable();
-        public DataTable isologtable = new DataTable();
-        List<string> TList = new List<string>();
-        public  List<string> ISOList = new List<string>();
-        string selection;
-
-        PD_EDWDataSetTableAdapters.isoLogTableAdapter isologchecker = new PD_EDWDataSetTableAdapters.isoLogTableAdapter();
-        PD_EDWDataSetTableAdapters.jobsTableAdapter jobschcker = new PD_EDWDataSetTableAdapters.jobsTableAdapter();
-
-        public IsoLogForm()
+        public IsoLog_Comparison()
         {
-            InitializeComponent();
 
+            InitializeComponent();
+            bool switcher = MTO_Report_Processor.Properties.Settings.Default.Theme;
             MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
@@ -38,24 +31,73 @@ namespace MTO_Report_Processor
                 Primary.Blue800, Primary.Blue900,
                 Primary.Blue500, Accent.LightBlue200,
                 TextShade.WHITE
-
             );
         }
 
-        private void IsoLogForm_Load(object sender, EventArgs e)
+        private void IsoLog_Comparison_Load(object sender, EventArgs e)
         {
-            PD_EDWDataSet.jobsDataTable jDT   = new PD_EDWDataSet.jobsDataTable();
-           this.jobschcker.Fill(jDT);
-            jobsBindingSource.DataSource = jDT;
+            var isolist = MTO_Report_Processor.Properties.Settings.Default.IsoList.Cast<string>().ToList();    //this is the line Jeremy added.
 
-            string lastfive = MTO_Report_Processor.Properties.Settings.Default.JobNum.Substring(2, 5);
 
-            dataGridView1.DataSource = isologchecker.GetData(lastfive);
-            dataGridView1.Refresh();
-            dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.RowCount - 1;
+            DataTable testtable = new DataTable();
+            testtable.Columns.Add("ISO Log-Reference_Dwg");
+
+            DataTable testtable2 = new DataTable();
+            testtable2.Columns.Add("Files-Reference_Dwg");
+
+            DataTable testtable3 = new DataTable();
+            testtable3.Columns.Add("Missing from Indexing");
+
+            DataTable testtable4 = new DataTable();
+            testtable4.Columns.Add("Missing from Takeoff");
+
+            var list1 = new List<string>();
+            var list2 = new List<string>();
+            var list3 = new List<string>();
+            foreach (string blah in MTO_Report_Processor.Properties.Settings.Default.IsoList)
+            {
+                testtable.Rows.Add(blah);
+            }
+            foreach (string blah2 in MTO_Report_Processor.Properties.Settings.Default.isotakeofflist)
+            {
+                testtable2.Rows.Add(blah2);
+            }
+
+
+
+            dataGridView1.DataSource = testtable;
+            dataGridView2.DataSource = testtable2;
+            dataGridView3.DataSource = list3;
+
+
+
+
+            dataGridView1.AutoResizeColumns();
+            dataGridView2.AutoResizeColumns();
+            dataGridView3.AutoResizeColumns();
+            dataGridView4.AutoResizeColumns();
             ThemeChanger();
 
+
+            foreach (DataGridViewRow row2 in dataGridView2.Rows)
+            {
+                foreach (DataGridViewRow row1 in dataGridView1.Rows)
+                {
+                    if (!row1.Cells[0].Value.ToString().Contains(row2.Cells[0].ToString()))
+                        row1.Cells[0].Style.ForeColor = Color.Red;
+                }
+            }
+
+            foreach (DataGridViewRow row1 in dataGridView1.Rows)
+            {
+                foreach (DataGridViewRow row2 in dataGridView2.Rows)
+                {
+                    if (!row2.Cells[0].Value.ToString().Contains(row1.Cells[0].ToString()))
+                        row2.Cells[0].Style.ForeColor = Color.Red;
+                }
+            }
         }
+
 
 
 
@@ -113,37 +155,14 @@ namespace MTO_Report_Processor
 
         }
 
-
-
-
-        private void button1_Click_1(object sender, EventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            string lastfive = MTO_Report_Processor.Properties.Settings.Default.JobNum.Substring(2, 5);
-            var message = "";
-            foreach (DataGridViewCell r in dataGridView1.SelectedCells)
-            {
-                TList.Add(r.Value.ToString());
 
-            }
-            foreach (String trans in TList)
-            {
-                //isologchecker.getisolistby(selection, iso);
-                DataTable dt = isologchecker.GetDataByisologlist(lastfive, trans);
-                foreach (DataRow row in dt.Rows)
-                {
-                    MTO_Report_Processor.Properties.Settings.Default.IsoList.Add(row["isoLog_refDwg"].ToString());
-                }
-                //message = string.Join(Environment.NewLine, MTO_Report_Processor.Properties.Settings.Default.IsoList);
-                //MessageBox.Show(message.ToString());
-            }
+        }
 
-            //Form1 form = new Form1();
-            //form.passList(this.ISOList);
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
 
-            IsoLog_Comparison form2 = new IsoLog_Comparison();
-            form2.Show();
-
-            this.Close();
         }
     }
 }

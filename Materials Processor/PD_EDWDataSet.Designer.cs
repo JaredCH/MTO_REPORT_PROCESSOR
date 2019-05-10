@@ -314,7 +314,7 @@ namespace MTO_Report_Processor {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class isoLogDataTable : global::System.Data.TypedTableBase<isoLogRow> {
             
-            private global::System.Data.DataColumn columnExpr2;
+            private global::System.Data.DataColumn columnisoLog_transNum;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
@@ -351,9 +351,9 @@ namespace MTO_Report_Processor {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn Expr2Column {
+            public global::System.Data.DataColumn isoLog_transNumColumn {
                 get {
-                    return this.columnExpr2;
+                    return this.columnisoLog_transNum;
                 }
             }
             
@@ -394,10 +394,10 @@ namespace MTO_Report_Processor {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public isoLogRow AddisoLogRow(string Expr2) {
+            public isoLogRow AddisoLogRow(string isoLog_transNum) {
                 isoLogRow rowisoLogRow = ((isoLogRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        Expr2};
+                        isoLog_transNum};
                 rowisoLogRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowisoLogRow);
                 return rowisoLogRow;
@@ -420,15 +420,15 @@ namespace MTO_Report_Processor {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
-                this.columnExpr2 = base.Columns["Expr2"];
+                this.columnisoLog_transNum = base.Columns["isoLog_transNum"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             private void InitClass() {
-                this.columnExpr2 = new global::System.Data.DataColumn("Expr2", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnExpr2);
-                this.columnExpr2.MaxLength = 20;
+                this.columnisoLog_transNum = new global::System.Data.DataColumn("isoLog_transNum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnisoLog_transNum);
+                this.columnisoLog_transNum.MaxLength = 20;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -848,30 +848,30 @@ namespace MTO_Report_Processor {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string Expr2 {
+            public string isoLog_transNum {
                 get {
                     try {
-                        return ((string)(this[this.tableisoLog.Expr2Column]));
+                        return ((string)(this[this.tableisoLog.isoLog_transNumColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Expr2\' in table \'isoLog\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'isoLog_transNum\' in table \'isoLog\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableisoLog.Expr2Column] = value;
+                    this[this.tableisoLog.isoLog_transNumColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsExpr2Null() {
-                return this.IsNull(this.tableisoLog.Expr2Column);
+            public bool IsisoLog_transNumNull() {
+                return this.IsNull(this.tableisoLog.isoLog_transNumColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetExpr2Null() {
-                this[this.tableisoLog.Expr2Column] = global::System.Convert.DBNull;
+            public void SetisoLog_transNumNull() {
+                this[this.tableisoLog.isoLog_transNumColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1122,7 +1122,7 @@ namespace MTO_Report_Processor.PD_EDWDataSetTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "isoLog";
-            tableMapping.ColumnMappings.Add("Expr2", "Expr2");
+            tableMapping.ColumnMappings.Add("isoLog_transNum", "isoLog_transNum");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1139,15 +1139,15 @@ namespace MTO_Report_Processor.PD_EDWDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[3];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT DISTINCT eng.isoLog.isoLog_transNum AS Expr2\r\nFROM            eng.isoLog I" +
-                "NNER JOIN\r\n                         ent.jobs ON eng.isoLog.jobs_id = ent.jobs.jo" +
-                "bs_id\r\nWHERE        (ent.jobs.job_num LIKE @jobchoice)\r\n";
+            this._commandCollection[0].CommandText = "SELECT DISTINCT eng.isoLog.isoLog_transNum\r\nFROM            eng.isoLog INNER JOIN" +
+                "\r\n                         ent.jobs ON eng.isoLog.jobs_id = ent.jobs.jobs_id\r\nWH" +
+                "ERE        (ent.jobs.job_num LIKE @jobchoice)\r\n";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@jobchoice", global::System.Data.SqlDbType.NVarChar, 20, global::System.Data.ParameterDirection.Input, 0, 0, "job_num", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = @"SELECT DISTINCT 
-                         eng.isoLog.isoLog_transNum AS Expr2, eng.isoLog.isoLog_id, eng.isoLog.isoLog_mat, eng.isoLog.isoLog_transNum, eng.isoLog.isoLog_recvDate, eng.isoLog.isoLog_lineNum, eng.isoLog.isoLog_miscSort, 
+                         eng.isoLog.isoLog_transNum, eng.isoLog.isoLog_id, eng.isoLog.isoLog_mat, eng.isoLog.isoLog_transNum, eng.isoLog.isoLog_recvDate, eng.isoLog.isoLog_lineNum, eng.isoLog.isoLog_miscSort, 
                          eng.isoLog.isoLog_refDwg, eng.isoLog.isoLog_shtNum, eng.isoLog.isoLog_revNum, eng.isoLog.isoLog_lineSize, eng.isoLog.isoLog_UK, eng.isoLog.isoLog_IK, eng.isoLog.flag_current, eng.isoLog.flag_currentRev, 
                          eng.isoLog.flag_deleted, eng.isoLog.date_orignalEntry, eng.isoLog.user_orignalEntry, eng.isoLog.date_edit, eng.isoLog.user_edit, eng.isoLog.timeStamp, eng.isoLog.jobs_id, eng.isoLog.Prospect_id
 FROM            eng.isoLog INNER JOIN
@@ -1157,13 +1157,13 @@ WHERE        (eng.isoLog.isoLog_refDwg LIKE @refdwg)";
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@refdwg", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "isoLog_refDwg", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = @"SELECT DISTINCT eng.isoLog.isoLog_transNum AS Expr2, ent.jobs.jobs_id, eng.isoLog.isoLog_refDwg
+            this._commandCollection[2].CommandText = @"SELECT DISTINCT eng.isoLog.isoLog_transNum, ent.jobs.jobs_id, eng.isoLog.isoLog_refDwg
 FROM            eng.isoLog INNER JOIN
                          ent.jobs ON eng.isoLog.jobs_id = ent.jobs.jobs_id
 WHERE        (ent.jobs.job_num LIKE @jobchoice) AND (eng.isoLog.isoLog_transNum LIKE @tnum)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@jobchoice", global::System.Data.SqlDbType.NVarChar, 20, global::System.Data.ParameterDirection.Input, 0, 0, "job_num", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@tnum", global::System.Data.SqlDbType.NVarChar, 20, global::System.Data.ParameterDirection.Input, 0, 0, "Expr2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@tnum", global::System.Data.SqlDbType.NVarChar, 20, global::System.Data.ParameterDirection.Input, 0, 0, "isoLog_transNum", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

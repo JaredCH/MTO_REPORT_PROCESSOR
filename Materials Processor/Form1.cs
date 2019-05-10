@@ -316,7 +316,6 @@ null, this.dataGridView2, new object[] { true });
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // right click option to set "take off method" options for IDF, PCF, Both, or Manual.
             //dataGridView1.DefaultCellStyle.BackColor = Color.White;
            // dataGridView1.GridColor = Color.Black;
            // dataGridView1.DefaultCellStyle.ForeColor = Color.Black;
@@ -593,7 +592,7 @@ null, this.dataGridView2, new object[] { true });
         DataTable[] backuptbl = new DataTable[n];
         DataTable dt11 = new DataTable();
         DataColumn column;
-        DataRow row;
+        //DataRow row;
         public void CreateRecoveryPoint()
         {
             // dataGridView1.Refresh();
@@ -1184,7 +1183,8 @@ null, this.dataGridView2, new object[] { true });
                 catch
                 { }
             }
-            
+            dataTable3.AcceptChanges();
+
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -1446,6 +1446,7 @@ null, this.dataGridView2, new object[] { true });
             
             jobnum = Microsoft.VisualBasic.Interaction.InputBox("Job Number" + Environment.NewLine + "(7 Digit Job Number)", "New Report Info", "");
             trans = Microsoft.VisualBasic.Interaction.InputBox("Transmittal" + Environment.NewLine + " (Please only type the 3 digit Transmittal number)", "New Report Info", "");
+            MTO_Report_Processor.Properties.Settings.Default.JobNum = jobnum;
 
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
@@ -1495,12 +1496,15 @@ null, this.dataGridView2, new object[] { true });
                 }
                 catch
                 { }
+
+                
             }
 
 
             dataGridView1.AutoResizeColumns();
             dataGridView2.AutoResizeColumns();
             dataTable3.AcceptChanges();
+            dataGridView1.Refresh();
             String timeStamp = GetTimestamp(DateTime.Now);
             if (File.Exists(@"V:\MTO\Spoolgen\Reports\Original_Reports\Material_" + jobnum + "_" + trans + ".csv"))
             {
@@ -1864,6 +1868,21 @@ null, this.dataGridView2, new object[] { true });
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
 
+        }
+
+        private void testToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            dataTable3.AcceptChanges();
+            dataGridView1.Refresh();
+
+            foreach (DataRow row in dataTable3.Rows)
+            {
+                MTO_Report_Processor.Properties.Settings.Default.isotakeofflist.Add(row["Pipeline_Reference"].ToString());
+            }
+
+           
+            var myForm = new IsoLogForm();
+            myForm.Show();
         }
 
         public static String GetTimestamp(DateTime value)
