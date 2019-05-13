@@ -123,7 +123,14 @@ null, this.dataGridView2, new object[] { true });
             if (!ApplicationDeployment.CurrentDeployment.IsFirstRun)
                 return;
 
-            MessageBox.Show("1.) Added Individual cell modification: Cell Prepend/Append/Find-And-Replace." + Environment.NewLine  + Environment.NewLine + "2.) Consolidate Specific Function." + Environment.NewLine + Environment.NewLine +"3.) Added an Undo / Reset Report option." + Environment.NewLine + Environment.NewLine + "4.) Added Help section with Tutorials." + Environment.NewLine + Environment.NewLine + "5.) Included Light and Dark themes, click the Epic Logo to toggle." + Environment.NewLine + Environment.NewLine + "6.) Added Font Size Toggle up/down for the data grids.", "Change Log", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("1.) Added IsoLog Checker." 
+                + Environment.NewLine + Environment.NewLine +
+                "2.) Application removes all commas and inch instances."
+                + Environment.NewLine + Environment.NewLine +
+                "3.) Help section now includes 3 tutorials."
+                + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
+                "If you enoucnter any issues or bugs please contact Jared Hicks (Jared.Hicks@Epicpiping.com)."
+                , "Change Log", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
 
@@ -454,7 +461,7 @@ null, this.dataGridView2, new object[] { true });
 
                 excelWorkSheet = excelWorkBook.Worksheets["DeleteMe"];
                 excelWorkSheet.Delete();
-                excelWorkBook.SaveAs(path + "\\" + template + ".xlsx");
+                excelWorkBook.SaveAs(path +  "\\" + template + ".xlsx");
                 excelWorkBook.Close();
                 excelApp.Quit();
                 stopath = path + "\\" + template + ".xlsx";
@@ -526,7 +533,7 @@ null, this.dataGridView2, new object[] { true });
 
                 excelWorkSheet = excelWorkBook.Worksheets["DeleteMe"];
                 excelWorkSheet.Delete();
-                excelWorkBook.SaveAs(path + "\\" + template + "Nextgen_.xlsx");
+                excelWorkBook.SaveAs(path + "\\"  + template + "Nextgen_.xlsx");
                 excelWorkBook.Close();
                 excelApp.Quit();
 
@@ -718,7 +725,7 @@ null, this.dataGridView2, new object[] { true });
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
 
-
+            dataTable3.AcceptChanges();
             DataTable dtFromGrid = new DataTable();
             dtFromGrid = (dataGridView1.DataSource as DataTable).Copy();
 
@@ -1186,7 +1193,6 @@ null, this.dataGridView2, new object[] { true });
                 catch
                 { }
             }
-            dataTable3.AcceptChanges();
 
         }
 
@@ -1453,7 +1459,7 @@ null, this.dataGridView2, new object[] { true });
 
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
-                InitialDirectory = @"V:\MTO\Spoolgen\Reports\Original_Reports\",
+                InitialDirectory = @"V:\MTO\Spoolgen\Reports\",
                 Title = "Browse for CSV Report",
                 CheckFileExists = true,
                 CheckPathExists = true,
@@ -1494,13 +1500,25 @@ null, this.dataGridView2, new object[] { true });
                 try
                 {
                     string replaceing = row.Cells["Description"].Value.ToString();
-                    row.Cells["Description"].Value = replaceing.Replace(oldtext1, newtext1);
                     row.Cells["Description"].Value = replaceing.Replace(oldtext2, newtext2);
                 }
                 catch
                 { }
 
                 
+            }
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                try
+                {
+                    string replaceing = row.Cells["Description"].Value.ToString();
+                    row.Cells["Description"].Value = replaceing.Replace(oldtext1, newtext1);
+                }
+                catch
+                { }
+
+
             }
 
 

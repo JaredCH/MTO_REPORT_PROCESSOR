@@ -40,16 +40,11 @@ namespace MTO_Report_Processor
 
 
             DataTable testtable = new DataTable();
-            testtable.Columns.Add("ISO Log-Reference_Dwg");
+            testtable.Columns.Add("ISO-Log-RfDwg");
 
             DataTable testtable2 = new DataTable();
-            testtable2.Columns.Add("Files-Reference_Dwg");
+            testtable2.Columns.Add("Files-RfDwg");
 
-            DataTable testtable3 = new DataTable();
-            testtable3.Columns.Add("Missing from Indexing");
-
-            DataTable testtable4 = new DataTable();
-            testtable4.Columns.Add("Missing from Takeoff");
 
             var list1 = new List<string>();
             var list2 = new List<string>();
@@ -67,35 +62,18 @@ namespace MTO_Report_Processor
 
             dataGridView1.DataSource = testtable;
             dataGridView2.DataSource = testtable2;
-            dataGridView3.DataSource = list3;
 
 
 
 
             dataGridView1.AutoResizeColumns();
             dataGridView2.AutoResizeColumns();
-            dataGridView3.AutoResizeColumns();
-            dataGridView4.AutoResizeColumns();
+            
+
             ThemeChanger();
 
 
-            foreach (DataGridViewRow row2 in dataGridView2.Rows)
-            {
-                foreach (DataGridViewRow row1 in dataGridView1.Rows)
-                {
-                    if (!row1.Cells[0].Value.ToString().Contains(row2.Cells[0].ToString()))
-                        row1.Cells[0].Style.ForeColor = Color.Red;
-                }
-            }
 
-            foreach (DataGridViewRow row1 in dataGridView1.Rows)
-            {
-                foreach (DataGridViewRow row2 in dataGridView2.Rows)
-                {
-                    if (!row2.Cells[0].Value.ToString().Contains(row1.Cells[0].ToString()))
-                        row2.Cells[0].Style.ForeColor = Color.Red;
-                }
-            }
         }
 
 
@@ -124,6 +102,19 @@ namespace MTO_Report_Processor
                 dataGridView1.RowHeadersDefaultCellStyle.ForeColor = Color.White;
                 dataGridView1.EnableHeadersVisualStyles = false;
 
+                dataGridView2.DefaultCellStyle.BackColor = Color.DimGray;
+                dataGridView2.GridColor = Color.WhiteSmoke;
+                dataGridView2.DefaultCellStyle.ForeColor = Color.White;
+                dataGridView2.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkGray;
+                dataGridView2.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                dataGridView2.RowHeadersDefaultCellStyle.BackColor = Color.DarkGray;
+                dataGridView2.RowHeadersDefaultCellStyle.ForeColor = Color.White;
+                dataGridView2.EnableHeadersVisualStyles = false;
+
+                dataGridView1.DefaultCellStyle.BackColor = Color.Red;
+                dataGridView1.DefaultCellStyle.ForeColor = Color.White;
+                dataGridView2.DefaultCellStyle.BackColor = Color.Red;
+                dataGridView2.DefaultCellStyle.ForeColor = Color.White;
 
 
             }
@@ -151,6 +142,19 @@ namespace MTO_Report_Processor
                 dataGridView1.RowHeadersDefaultCellStyle.ForeColor = Color.Black;
                 dataGridView1.EnableHeadersVisualStyles = false;
 
+                dataGridView2.DefaultCellStyle.BackColor = Color.White;
+                dataGridView2.GridColor = Color.Black;
+                dataGridView2.DefaultCellStyle.ForeColor = Color.Black;
+                dataGridView2.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
+                dataGridView2.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+                dataGridView2.RowHeadersDefaultCellStyle.BackColor = Color.White;
+                dataGridView2.RowHeadersDefaultCellStyle.ForeColor = Color.Black;
+                dataGridView2.EnableHeadersVisualStyles = false;
+
+
+
+
+
             }
 
         }
@@ -163,6 +167,48 @@ namespace MTO_Report_Processor
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void IsoLog_Comparison_Shown(object sender, EventArgs e)
+        {
+
+            foreach (DataGridViewRow row2 in dataGridView2.Rows)
+            {
+                foreach (DataGridViewRow row1 in dataGridView1.Rows)
+                {
+                    if (row1.Cells[0].Value.ToString() == row2.Cells[0].Value.ToString())
+                    {
+                        row2.Cells[0].Style.BackColor = Color.Green;
+                        row2.Cells[0].Style.ForeColor = Color.White;
+                    }
+                }
+            }
+
+
+            foreach (DataGridViewRow row2 in dataGridView1.Rows)
+            {
+                foreach (DataGridViewRow row1 in dataGridView2.Rows)
+                {
+                    if (row1.Cells[0].Value.ToString() == row2.Cells[0].Value.ToString())
+                    {
+                        row2.Cells[0].Style.BackColor = Color.Green;
+                        row2.Cells[0].Style.ForeColor = Color.White;
+                    }
+                }
+                dataGridView1.AutoResizeColumns();
+                dataGridView2.AutoResizeColumns();
+            }
+
+
+
+            //foreach (DataGridViewRow row1 in dataGridView1.Rows)
+            //{
+            //    foreach (DataGridViewRow row2 in dataGridView2.Rows)
+            //    {
+            //        if (!row2.Cells[0].Value.ToString().Contains(row1.Cells[0].Value.ToString()))
+            //            row2.Cells[0].Style.ForeColor = Color.Red;
+            //    }
+            //}
         }
     }
 }

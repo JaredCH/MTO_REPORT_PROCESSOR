@@ -79,7 +79,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Name = "IsoLogForm";
-            this.Text = "IsoLog Checker";
+            this.Text = "Transmittals";
             this.Load += new System.EventHandler(this.IsoLogForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.jobsBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);

@@ -128,6 +128,7 @@ namespace MTO_Report_Processor
             foreach (String trans in TList)
             {
                 //isologchecker.getisolistby(selection, iso);
+                MTO_Report_Processor.Properties.Settings.Default.IsoList.Clear();
                 DataTable dt = isologchecker.GetDataByisologlist(lastfive, trans);
                 foreach (DataRow row in dt.Rows)
                 {
