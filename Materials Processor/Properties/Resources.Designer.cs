@@ -63,59 +63,9 @@ namespace MTO_Report_Processor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _04de2e31234507_564a1d23645bf {
-            get {
-                object obj = ResourceManager.GetObject("04de2e31234507_564a1d23645bf", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _09b24e31234507_564a1d23c07b4 {
-            get {
-                object obj = ResourceManager.GetObject("09b24e31234507_564a1d23c07b4", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _4V0b {
-            get {
-                object obj = ResourceManager.GetObject("4V0b", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap epic_logo_8_5in {
             get {
                 object obj = ResourceManager.GetObject("epic_logo_8_5in", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap giphy {
-            get {
-                object obj = ResourceManager.GetObject("giphy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap loader {
-            get {
-                object obj = ResourceManager.GetObject("loader", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,29 +93,10 @@ namespace MTO_Report_Processor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap tenor1J21TEML {
+        internal static System.Drawing.Bitmap up_arrow_vector_icon_isolated_on_transparent_background_up_arrow_transparency_logo_concept_R1PKJM {
             get {
-                object obj = ResourceManager.GetObject("tenor1J21TEML", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap tenorDF60MJXZ {
-            get {
-                object obj = ResourceManager.GetObject("tenorDF60MJXZ", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap tenorGG5AZKVO {
-            get {
-                object obj = ResourceManager.GetObject("tenorGG5AZKVO", resourceCulture);
+                object obj = ResourceManager.GetObject("up-arrow-vector-icon-isolated-on-transparent-background-up-arrow-transparency-log" +
+                        "o-concept-R1PKJM", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

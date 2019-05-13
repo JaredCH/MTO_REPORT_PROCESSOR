@@ -22,8 +22,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>\\epichqfs\data\Materials\MTO\exe tools\MTO Report Processor\</InstallUrl>
-    <ApplicationRevision>57</ApplicationRevision>
+    <InstallUrl>\\epichqfs\Data\Materials\MTO\exe tools\MTO Report Processor\</InstallUrl>
+    <ApplicationRevision>94</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -79,6 +79,17 @@
     <Reference Include="Microsoft.Analytics.Interfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f877b68b06e0b5e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Analytics.Interfaces.Streaming, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8341efbf9a4dc8c9, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Analytics.Types, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f877b68b06e0b5e, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Office.Interop.Access, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel1">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\Shared\Visual Studio Tools for Office\PIA\Office15\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Outlook1">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\Shared\Visual Studio Tools for Office\PIA\Office15\Microsoft.Office.Interop.Outlook.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualStudio.ApplicationInsights.Interfaces, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Data.Tools.Interfaces.1.0, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -93,6 +104,9 @@
     <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.VC.Interfaces, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
@@ -123,6 +137,12 @@
     <Compile Include="IsoLogForm.Designer.cs">
       <DependentUpon>IsoLogForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IsoLog_Comparison.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IsoLog_Comparison.Designer.cs">
+      <DependentUpon>IsoLog_Comparison.cs</DependentUpon>
+    </Compile>
     <Compile Include="PD_EDWDataSet.cs">
       <DependentUpon>PD_EDWDataSet.xsd</DependentUpon>
     </Compile>
@@ -141,6 +161,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="System\Windows\Controls.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -148,16 +173,14 @@
     <EmbeddedResource Include="IsoLogForm.resx">
       <DependentUpon>IsoLogForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="IsoLog_Comparison.resx">
+      <DependentUpon>IsoLog_Comparison.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Materials Report Processor_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="PD_EDWDataSet.xsc">
@@ -330,31 +353,8 @@
     <None Include="Resources\epic_logo_8_5in.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\tenor1J21TEML.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\tenorGG5AZKVO.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\tenorDF60MJXZ.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\giphy.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\4V0b.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\09b24e31234507_564a1d23c07b4.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\loader.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\04de2e31234507_564a1d23645bf.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="procurement_icon.ico" />
+    <None Include="Resources\up-arrow-vector-icon-isolated-on-transparent-background-up-arrow-transparency-logo-concept-R1PKJM.jpg" />
     <None Include="Resources\preloader.gif" />
     <None Include="Resources\procurement_icon.PNG" />
   </ItemGroup>
