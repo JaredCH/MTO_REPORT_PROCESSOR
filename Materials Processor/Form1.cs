@@ -111,6 +111,7 @@ null, this.dataGridView2, new object[] { true });
                 dataTable.Locale = CultureInfo.CurrentCulture;
                 adapter.Fill(dataTable);
                 return dataTable;
+                //
             }
         }
 
