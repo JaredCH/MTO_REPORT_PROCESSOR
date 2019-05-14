@@ -118,6 +118,7 @@ namespace MTO_Report_Processor
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            MTO_Report_Processor.Properties.Settings.Default.IsoList.Clear();
             string lastfive = MTO_Report_Processor.Properties.Settings.Default.JobNum.Substring(2, 5);
             var message = "";
             foreach (DataGridViewCell r in dataGridView1.SelectedCells)
@@ -128,7 +129,7 @@ namespace MTO_Report_Processor
             foreach (String trans in TList)
             {
                 //isologchecker.getisolistby(selection, iso);
-                MTO_Report_Processor.Properties.Settings.Default.IsoList.Clear();
+
                 DataTable dt = isologchecker.GetDataByisologlist(lastfive, trans);
                 foreach (DataRow row in dt.Rows)
                 {
