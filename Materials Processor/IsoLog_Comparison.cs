@@ -210,5 +210,10 @@ namespace MTO_Report_Processor
             //    }
             //}
         }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
