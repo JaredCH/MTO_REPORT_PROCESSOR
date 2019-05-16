@@ -42,6 +42,7 @@ namespace Materials_Processor
 
 
         DataTable dataTable3 = new DataTable();
+        DataTable SPOOLtable_table_threaded = new DataTable();
 
         List<string> new_ISOS = new List<string>();
         public Form1(List<string>ISOS)
@@ -128,7 +129,7 @@ null, this.dataGridView2, new object[] { true });
                 + Environment.NewLine + Environment.NewLine +
                 "2.) Application removes all commas and inch instances."
                 + Environment.NewLine + Environment.NewLine +
-                "3.) Help section now includes 3 tutorials."
+                "3.) Added Tooltip Text when you mouse over the three buttons on the main form."
                 + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
                 "If you enoucnter any issues or bugs please contact Jared Hicks (Jared.Hicks@Epicpiping.com)."
                 , "Change Log", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1614,7 +1615,8 @@ null, this.dataGridView2, new object[] { true });
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             //
-             try
+            dataGridView1.Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.NotSortable);
+            try
             {
             string fivedigitjobnum = dataGridView1.Rows[0].Cells["Production_No"].Value.ToString();
             DataTable SPOOLtable_table = isologchecker.GetDataBy1(fivedigitjobnum.Substring(fivedigitjobnum.Length - 5, 5));
@@ -1685,6 +1687,7 @@ null, this.dataGridView2, new object[] { true });
             }
 
              catch { }
+            dataGridView1.Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.Automatic);
             //label3.Visible = false;
         }
 
@@ -1701,6 +1704,7 @@ null, this.dataGridView2, new object[] { true });
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             pictureBox2.Visible = false;
+            dataGridView1.Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.Automatic);
         }
 
 
@@ -1873,8 +1877,8 @@ null, this.dataGridView2, new object[] { true });
 
         private void toolStripMenuItem18_Click(object sender, EventArgs e)
         {
-            string oldtext = Microsoft.VisualBasic.Interaction.InputBox("Text to Replace", "Find and Replace - RefDwg", "Default");
-            string newtext = Microsoft.VisualBasic.Interaction.InputBox("Replacing text with", "Find and Replace - RefDwg", "Default");
+            string oldtext = Microsoft.VisualBasic.Interaction.InputBox("Text to Replace", "Find and Replace - Selected Cells", "Default");
+            string newtext = Microsoft.VisualBasic.Interaction.InputBox("Replacing text with", "Find and Replace - Selected Cells", "Default");
             foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
             {
                 try
@@ -1910,6 +1914,298 @@ null, this.dataGridView2, new object[] { true });
 
             var myForm = new IsoLogForm();
             myForm.Show();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            pictureBox2.Visible = true;
+            backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dataTable3.AcceptChanges();
+            dataGridView1.Refresh();
+
+            DataView view = new DataView(dataTable3);
+            DataTable distinctValues = view.ToTable(true, "Pipeline_Reference");
+
+            MTO_Report_Processor.Properties.Settings.Default.isotakeofflist.Clear();
+
+            foreach (DataRow row in distinctValues.Rows)
+            {
+                MTO_Report_Processor.Properties.Settings.Default.isotakeofflist.Add(row["Pipeline_Reference"].ToString());
+            }
+
+
+            var myForm = new IsoLogForm();
+            myForm.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID");
+            dt.Columns.Add("Job_No");
+            dt.Columns.Add("Epic_Trans_No");
+            dt.Columns.Add("Iso_Rec_Date");
+            dt.Columns.Add("Spool_No");
+            dt.Columns.Add("Iso_Num");
+            dt.Columns.Add("Iso_Rev");
+            dt.Columns.Add("Pc_Mk");
+            dt.Columns.Add("Client_Desc");
+            dt.Columns.Add("Client_Item_Code");
+            dt.Columns.Add("Supt_Type");
+            dt.Columns.Add("Pipe_Spec");
+            dt.Columns.Add("Mtrl_Code");
+            dt.Columns.Add("Header_Size");
+            dt.Columns.Add("Header_Comp");
+            dt.Columns.Add("Combo_Supt");
+            dt.Columns.Add("Scope");
+            dt.Columns.Add("EPIC_Template");
+            dt.Columns.Add("EPIC_Tag#");
+            dt.Columns.Add("EPIC_Long_ID");
+            dt.Columns.Add("Exist_Detail");
+            dt.Columns.Add("Supt_Rev#");
+            dt.Columns.Add("Qty_Req");
+            dt.Columns.Add("Take_Off_Method");
+            dt.Columns.Add("Status");
+            dt.Columns.Add("ETD_Trans#");
+            dt.Columns.Add("ETD_Trans_Date");
+            dt.Columns.Add("DTE_Review_Trans#");
+            dt.Columns.Add("DTE_Review_Trans_Date");
+            dt.Columns.Add("ETD_Correction_Trans#");
+            dt.Columns.Add("ETD_Correction_Trans_Date");
+            dt.Columns.Add("DTE_Final_Trans#");
+            dt.Columns.Add("DTE_Final_Trans_Date");
+            dt.Columns.Add("Date_Iss_for_Fab");
+            dt.Columns.Add("Requisition#");
+            dt.Columns.Add("Hold");
+            dt.Columns.Add("RFI#");
+            dt.Columns.Add("Comments");
+            dt.Columns.Add("Weight_LBS");
+            dt.Columns.Add("Surf_Area_SF");
+            dt.Columns.Add("Days_Aged");
+            dt.Columns.Add("Item Type");
+            dt.Columns.Add("Path");
+
+
+
+
+
+
+            // dt.Columns.Add("Production_No");
+            // dt.Columns.Add("Source");
+            // dt.Columns.Add("Pipeline_Reference");
+            //dt.Columns.Add("Material Code");
+            // dt.Columns.Add("Spool Number");
+            //dt.Columns.Add("Piecemark");
+            //dt.Columns.Add("Piping_Spec");
+            //dt.Columns.Add("Item_Code");
+            //dt.Columns.Add("Size");
+            //dt.Columns.Add("Description");
+            //dt.Columns.Add("End_Conditions");
+            //dt.Columns.Add("Tag");
+            //dt.Columns.Add("Group");
+            //dt.Columns.Add("Qty");
+            //dt.Columns.Add("Qty2");
+            //dt.Columns.Add("UnitOfMeasure");
+            //dt.Columns.Add("Long_ID");
+            //dt.Columns.Add("JDE_Desc");
+            //dt.Columns.Add("Record_Type");
+            //dt.Columns.Add("Date");
+
+            //int i = 0;
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+                if (row.Cells["Group"].Value != null &&
+                     row.Cells["Group"].Value.ToString().Contains("_SUPPORTS"))
+                {
+
+                    DataRow toInsert = dt.NewRow();
+                    toInsert[8] = row.Cells["Description"].Value.ToString(); ;
+                    toInsert[7] = row.Cells["Piecemark"].Value.ToString();
+                    toInsert[9] = row.Cells["Item_Code"].Value.ToString();
+                    toInsert[11] = row.Cells["Piping_Spec"].Value.ToString();
+                    toInsert[12] = row.Cells["Material Code"].Value.ToString();
+                    toInsert[4] = row.Cells["Spool Number"].Value.ToString();
+                    toInsert[1] = row.Cells["Production_No"].Value.ToString();
+                    toInsert[2] = row.Cells["Source"].Value.ToString();
+
+                    toInsert[3] = row.Cells["recdate"].Value.ToString();
+                    toInsert[5] = row.Cells["Pipeline_Reference"].Value.ToString();
+                    toInsert[6] = row.Cells["revnum"].Value.ToString();
+                    toInsert[13] = row.Cells["Size"].Value.ToString();
+                    toInsert[22] = row.Cells["Qty"].Value.ToString();
+                    // dt.Rows.InsertAt(toInsert, 5);  //(row.Cells["Description"].Value.ToString());
+
+                    //dt.Rows[i]["itemcode"] = row.Cells["Item_Code"].Value.ToString();
+                    //i++;
+                    dt.Rows.Add(toInsert);
+                }
+            dt.AcceptChanges();
+            this.dataGridView2.DataSource = dt;
+
+
+            dataGridView2.Refresh();
+            MessageBox.Show("Please make sure to set the 'Take off Method' in the STO report below.", "STO Report Reminder", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            contextMenuStrip2.Show(Cursor.Position);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string fivedigitjobnum_threaded = dataGridView1.Rows[0].Cells["Production_No"].Value.ToString();
+            SPOOLtable_table_threaded = isologchecker.GetDataBy1(fivedigitjobnum_threaded.Substring(fivedigitjobnum_threaded.Length - 5, 5));
+            pictureBox2.Visible = true;
+            backgroundWorker4.RunWorkerAsync();
+            backgroundWorker3.RunWorkerAsync();
+
+
+        }
+
+
+        private void GetExternalData_Top2Bottom()
+        {
+            string fivedigitjobnum_threaded = dataGridView1.Rows[0].Cells["Production_No"].Value.ToString();
+            //DataTable SPOOLtable_table_threaded1 = isologchecker.GetDataBy1(fivedigitjobnum_threaded.Substring(fivedigitjobnum_threaded.Length - 5, 5));
+            for (int i = 0; i < dataGridView1.RowCount / 2; i++)
+            {
+                string pcmk_threaded = dataGridView1.Rows[i].Cells["Piecemark"].Value.ToString();
+                string find_threaded = "spool_pcmark = '" + pcmk_threaded + "'";
+                DataRow[] foundRows_threaded = SPOOLtable_table_threaded.Select(find_threaded);
+                int fr = foundRows_threaded.Count();
+                if (fr >= 1)
+                {
+
+                    if (SPOOLtable_table_threaded.Rows[0]["spool"] != DBNull.Value)
+                    {
+                        dataGridView1.Rows[i].Cells["Spool Number"].Value = foundRows_threaded[0]["spool"].ToString();
+                    }
+                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_recvDate"].ToString() != null)
+                    {
+                        dataGridView1.Rows[i].Cells["recdate"].Value = foundRows_threaded[0]["isoLog_recvDate"].ToString();
+                    }
+                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_LineNum"].ToString() != null)
+                    {
+                        dataGridView1.Rows[i].Cells["linenum"].Value = foundRows_threaded[0]["isoLog_LineNum"].ToString();
+                    }
+                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_revNum"].ToString() != null)
+                    {
+                        dataGridView1.Rows[i].Cells["revnum"].Value = foundRows_threaded[0]["isoLog_revNum"].ToString();
+                    }
+                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_LineSize"].ToString() != null)
+                    {
+                        dataGridView1.Rows[i].Cells["linesize"].Value = foundRows_threaded[0]["isoLog_LineSize"].ToString();
+                    }
+                }
+                //DataTable ISOLOGtable_table = isologchecker.GetData(dataGridView1.Rows[i].Cells["Pipeline_Reference"].Value.ToString());
+                //if (ISOLOGtable_table.Rows.Count != 0)
+                //{
+                //    dataGridView1.Rows[i].Cells["Material Code"].Value = ISOLOGtable_table.Rows[0]["isoLog_mat"].ToString();
+                //}
+                //if (ISOLOGtable_table.Rows.Count != 0)
+                //{
+                //    dataGridView1.Rows[i].Cells["Source"].Value = "T" + ISOLOGtable_table.Rows[ISOLOGtable_table.Rows.Count - 1]["isoLog_transNum"].ToString();
+                //}
+                //if (ISOLOGtable_table.Rows.Count == 1)
+                //{
+                //    dataGridView1.Rows[i].Cells["Source"].Value = "T" + ISOLOGtable_table.Rows[0]["isoLog_transNum"].ToString();
+                //}
+                //if (ISOLOGtable_table.Rows.Count >= 2)
+                //{
+                //    dataGridView1.Rows[i].Cells["Source"].Value = "T" + ISOLOGtable_table.Rows[ISOLOGtable_table.Rows.Count - 1]["isoLog_transNum"].ToString() + "-REV";
+                //}
+
+            }
+
+        }
+
+
+
+
+
+        private void GetExternalData_Bottom2Top()
+        {
+            string fivedigitjobnum_threaded = dataGridView1.Rows[0].Cells["Production_No"].Value.ToString();
+            //DataTable SPOOLtable_table_threaded = isologchecker.GetDataBy1(fivedigitjobnum_threaded.Substring(fivedigitjobnum_threaded.Length - 5, 5));
+            for (int i = dataGridView1.RowCount-1; i > dataGridView1.RowCount / 2; i--)
+            {
+                string pcmk_threaded = dataGridView1.Rows[i].Cells["Piecemark"].Value.ToString();
+                string find_threaded = "spool_pcmark = '" + pcmk_threaded + "'";
+                DataRow[] foundRows_threaded1 = SPOOLtable_table_threaded.Select(find_threaded);
+                int fr = foundRows_threaded1.Count();
+                if (fr >= 1)
+                {
+
+                    if (SPOOLtable_table_threaded.Rows[0]["spool"] != DBNull.Value)
+                    {
+                        dataGridView1.Rows[i].Cells["Spool Number"].Value = foundRows_threaded1[0]["spool"].ToString();
+                    }
+                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_recvDate"].ToString() != null)
+                    {
+                        dataGridView1.Rows[i].Cells["recdate"].Value = foundRows_threaded1[0]["isoLog_recvDate"].ToString();
+                    }
+                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_LineNum"].ToString() != null)
+                    {
+                        dataGridView1.Rows[i].Cells["linenum"].Value = foundRows_threaded1[0]["isoLog_LineNum"].ToString();
+                    }
+                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_revNum"].ToString() != null)
+                    {
+                        dataGridView1.Rows[i].Cells["revnum"].Value = foundRows_threaded1[0]["isoLog_revNum"].ToString();
+                    }
+                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_LineSize"].ToString() != null)
+                    {
+                        dataGridView1.Rows[i].Cells["linesize"].Value = foundRows_threaded1[0]["isoLog_LineSize"].ToString();
+                    }
+                }
+                //DataTable ISOLOGtable_table1 = isologchecker.GetData(dataGridView1.Rows[i].Cells["Pipeline_Reference"].Value.ToString());
+                //if (ISOLOGtable_table1.Rows.Count != 0)
+                //{
+                //    dataGridView1.Rows[i].Cells["Material Code"].Value = ISOLOGtable_table1.Rows[0]["isoLog_mat"].ToString();
+                //}
+                //if (ISOLOGtable_table1.Rows.Count != 0)
+                //{
+                //    dataGridView1.Rows[i].Cells["Source"].Value = "T" + ISOLOGtable_table1.Rows[ISOLOGtable_table1.Rows.Count - 1]["isoLog_transNum"].ToString();
+                //}
+                //if (ISOLOGtable_table1.Rows.Count == 1)
+                //{
+                //    dataGridView1.Rows[i].Cells["Source"].Value = "T" + ISOLOGtable_table1.Rows[0]["isoLog_transNum"].ToString();
+                //}
+                //if (ISOLOGtable_table1.Rows.Count >= 2)
+                //{
+                //    dataGridView1.Rows[i].Cells["Source"].Value = "T" + ISOLOGtable_table1.Rows[ISOLOGtable_table1.Rows.Count - 1]["isoLog_transNum"].ToString() + "-REV";
+                //}
+            }
+        }
+
+        private void backgroundWorker3_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            GetExternalData_Bottom2Top();
+        }
+
+        private void backgroundWorker4_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            GetExternalData_Top2Bottom();
+        }
+
+        private void backgroundWorker4_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            pictureBox2.Visible = false;
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+
+            //if (this.Cursor != Cursors.WaitCursor)
+            //    Cursor.Current = Cursors.Hand;
+
+
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            //if (this.Cursor != Cursors.WaitCursor)
+            //    Cursor.Current = Cursors.Arrow;
         }
 
         public static String GetTimestamp(DateTime value)

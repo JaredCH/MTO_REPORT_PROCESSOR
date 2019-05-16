@@ -23,7 +23,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\epichqfs\Data\Materials\MTO\exe tools\MTO Report Processor\</InstallUrl>
-    <ApplicationRevision>95</ApplicationRevision>
+    <ApplicationRevision>103</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -354,6 +354,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="procurement_icon.ico" />
+    <None Include="Resources\preloader_purp.gif" />
+    <None Include="Resources\GED image %282%29.png" />
+    <None Include="Resources\procurement_icon1.PNG" />
+    <None Include="Resources\ISOLOG check image %282%29.png" />
+    <None Include="Resources\Generate STO image %282%29.png" />
+    <None Include="Resources\Generate STO image1.png" />
+    <None Include="Resources\Generate STO image.png" />
+    <None Include="Resources\GED image1.png" />
+    <None Include="Resources\Generate STO image2.png" />
+    <None Include="Resources\ISOLOG check image.png" />
+    <None Include="Resources\GED image.png" />
     <None Include="Resources\up-arrow-vector-icon-isolated-on-transparent-background-up-arrow-transparency-logo-concept-R1PKJM.jpg" />
     <None Include="Resources\preloader.gif" />
     <None Include="Resources\procurement_icon.PNG" />

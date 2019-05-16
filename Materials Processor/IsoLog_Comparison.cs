@@ -68,7 +68,8 @@ namespace MTO_Report_Processor
 
             dataGridView1.AutoResizeColumns();
             dataGridView2.AutoResizeColumns();
-            
+            dataGridView1.Rows[0].Selected = false;
+            dataGridView2.Rows[0].Selected = false;
 
             ThemeChanger();
 
