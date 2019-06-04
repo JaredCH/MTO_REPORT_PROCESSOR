@@ -30,6 +30,9 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using System.Drawing;
 
+//TODO
+//ADD IN RIGHT, LEFT, MIDDLE TEXT EDITING FOR VALVES FROM DESCRIPTION, BOTH FOR NORMAL VALVE FUNCTION AND ON CELL BASIS
+
 namespace Materials_Processor
 {
         public partial class Form1 : MaterialForm
@@ -125,11 +128,13 @@ null, this.dataGridView2, new object[] { true });
             if (!ApplicationDeployment.CurrentDeployment.IsFirstRun)
                 return;
 
-            MessageBox.Show("1.) Added IsoLog Checker." 
+            MessageBox.Show("1.) Export and E-mail STO now exports the report and composes an email alerting the material staff that the report has been uploaded, instead of attaching the report to the email.."
                 + Environment.NewLine + Environment.NewLine +
-                "2.) Application removes all commas and inch instances."
+                "2.) Improvements to 'Get External Data'." 
                 + Environment.NewLine + Environment.NewLine +
-                "3.) Added Tooltip Text when you mouse over the three buttons on the main form."
+                "3.) Corrections to the 'Import from Excel' Function."
+                + Environment.NewLine + Environment.NewLine +
+                "4.) Added options to the Generate Upload Template, to be able to select a Shop only Export or to include Field material."
                 + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
                 "If you enoucnter any issues or bugs please contact Jared Hicks (Jared.Hicks@Epicpiping.com)."
                 , "Change Log", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -206,12 +211,17 @@ null, this.dataGridView2, new object[] { true });
             int j = 0;
             foreach (DataRow row in tbl.Rows)
             {
-                if (tbl.Rows.IndexOf(row) != 0)
-                {
-                    string[] data = row["Test"].ToString().Split('$');
-                    tbl2.Rows.Add(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11], data[12], data[13], data[14]);
-                    j++;
-                }
+                //try
+                //{
+                //change to some king of loop for each instance of data[%] so we can account for lines that dont have 15 datasets.
+                    if (tbl.Rows.IndexOf(row) != 0)
+                    {
+                        string[] data = row["Test"].ToString().Split('$');
+                        tbl2.Rows.Add(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11], data[12], data[13], data[14]);
+                        j++;
+                    }
+                //}
+                //catch { }
             }
             int indexnum = 0;
             foreach (DataRow row in tbl2.Rows)
@@ -727,33 +737,7 @@ null, this.dataGridView2, new object[] { true });
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
 
-            dataTable3.AcceptChanges();
-            DataTable dtFromGrid = new DataTable();
-            dtFromGrid = (dataGridView1.DataSource as DataTable).Copy();
 
-            List<DataRow> RowsToDelete = new List<DataRow>();
-            foreach (DataRow row in dtFromGrid.Rows)
-                if (row["Group"].ToString() != null &&
-                     row["Group"].ToString().Contains("EREC") || row["Group"].ToString().Contains("SUPPORTS")) RowsToDelete.Add(row);
-            foreach (DataRow row in RowsToDelete) dtFromGrid.Rows.Remove(row);
-            RowsToDelete.Clear();
-
-            try
-            {
-                dtFromGrid.Columns.Remove("Material Code");
-                dtFromGrid.Columns.Remove("Spool Number");
-                dtFromGrid.Columns.Remove("recdate");
-                dtFromGrid.Columns.Remove("linenum");
-                dtFromGrid.Columns.Remove("revnum");
-                dtFromGrid.Columns.Remove("linesize");
-                dtFromGrid.Columns.Remove("Index");
-                DataSet ds = new DataSet();
-                ds.Tables.Clear();
-                ds.Tables.Add(dtFromGrid);
-                ExportDataSetToExcelAndMove(ds, jobnum + "_" + trans);
-
-            }
-            catch { }
         }
 
         private void sendSTOToolStripMenuItem_Click(object sender, EventArgs e)
@@ -933,14 +917,14 @@ null, this.dataGridView2, new object[] { true });
             // this.Application.CreateItem(Outlook.OlItemType.olMailItem);
             Outlook.Application app = new Outlook.Application();
             Outlook.MailItem mailItem = app.CreateItem(Outlook.OlItemType.olMailItem);
-            mailItem.Subject = jobnum + " T" + trans + " STO Report";
-            mailItem.To = "kenneth.smith@EpicPiping.com; sunil.gawli@epicpiping.com; Shailesh.Dabhekar@epicpiping.com";
+            mailItem.Subject = jobnum + " " + trans + " STO Report";
+            mailItem.To = "kenneth.smith@EpicPiping.com; adam.martin@epicpiping.com";
             mailItem.CC = "andre.naquin@EpicPiping.com; kevin.flores@epicpiping.com; Monty.Cornes@EpicPiping.com; travis.stromain@EpicPiping.com";
-            //mailItem.Body = "Please see the attached document.";
-            mailItem.Attachments.Add(stopath);//logPath is a string holding path to the log.txt file
+            //mailItem.Body = "The following Has been uploaded into the Master STO for job." + ;
+            //mailItem.Attachments.Add(stopath);//logPath is a string holding path to the log.txt file
             //mailItem.Importance = Outlook.OlImportance.olImportanceHigh;
             mailItem.Display(mailItem);
-            mailItem.HTMLBody = "Please see the attached document." + mailItem.HTMLBody;
+            mailItem.HTMLBody = jobnum + " " + trans + " has been uploaded into the Master STO." + mailItem.HTMLBody;
 
         }
 
@@ -1005,14 +989,23 @@ null, this.dataGridView2, new object[] { true });
 
                     var dataSets = reader.AsDataSet(conf);
                     var dataTables = dataSets.Tables[0];
-                    dataTables.Columns.Add("Material Code").SetOrdinal(3);
-                    dataTables.Columns.Add("Spool Number").SetOrdinal(4);
-                    dataTables.Columns.Add("recdate");
-                    dataTables.Columns.Add("linenum");
-                    dataTables.Columns.Add("revnum");
-                    dataTables.Columns.Add("linesize");
-                    dataTables.Columns.Add("Index", Type.GetType("System.Double"));
+                    //dataTables.Columns.Add("Material Code").SetOrdinal(3);
+                    //dataTables.Columns.Add("Spool Number").SetOrdinal(4);
+                    //dataTables.Columns.Add("recdate");
+                    //dataTables.Columns.Add("linenum");
+                    //dataTables.Columns.Add("revnum");
+                    //dataTables.Columns.Add("linesize");
+                    //dataTables.Columns.Add("Index", Type.GetType("System.Double"));
+
+
                     dataGridView1.DataSource = dataTables;
+                    dataGridView1.Columns["Spool Number"].Visible = false;
+                    dataGridView1.Columns["Material Code"].Visible = false;
+                    dataGridView1.Columns["recdate"].Visible = false;
+                    dataGridView1.Columns["linenum"].Visible = false;
+                    dataGridView1.Columns["revnum"].Visible = false;
+                    dataGridView1.Columns["linesize"].Visible = false;
+                    dataGridView1.Columns["index"].Visible = true;
                 }
             }
             
@@ -1503,12 +1496,16 @@ null, this.dataGridView2, new object[] { true });
                 {
                     string replaceing = row.Cells["Description"].Value.ToString();
                     row.Cells["Description"].Value = replaceing.Replace(oldtext2, newtext2);
+
+                    //string replaceing2 = row.Cells["CATEGORY"].Value.ToString();
+                   // row.Cells["CATEGORY"].Value = replaceing2.Replace(oldtext2, newtext2);
                 }
                 catch
                 { }
 
-                
-            }
+
+
+                }
 
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
@@ -1538,7 +1535,7 @@ null, this.dataGridView2, new object[] { true });
                 File.Move(openFileDialog1.FileName, @"V:\MTO\Spoolgen\Reports\Original_Reports\Material_" + jobnum + "_" + trans + ".csv");
             }
 
-
+            newToolStripMenuItem1.Enabled = false;
         }
 
         private void pcmkToolStripMenuItem4_Click(object sender, EventArgs e)
@@ -1620,71 +1617,77 @@ null, this.dataGridView2, new object[] { true });
             {
             string fivedigitjobnum = dataGridView1.Rows[0].Cells["Production_No"].Value.ToString();
             DataTable SPOOLtable_table = isologchecker.GetDataBy1(fivedigitjobnum.Substring(fivedigitjobnum.Length - 5, 5));
-            foreach (DataGridViewRow item in dataGridView1.Rows)
-            {
-                if (String.IsNullOrEmpty(item.Cells[0].Value as String))
+                DataTable ISOLOGtable_table = isologchecker.GetDataBy2(fivedigitjobnum.Substring(fivedigitjobnum.Length - 5));
+                foreach (DataGridViewRow item in dataGridView1.Rows)
                 {
-                    break;
-                }
-                if (item.Cells["Piecemark"].Value.ToString() != "")
-                {
-
-                    if (SPOOLtable_table != null)
+                    if (String.IsNullOrEmpty(item.Cells[0].Value as String))
                     {
-                        string pcmk = item.Cells["Piecemark"].Value.ToString();
-                        string find = "spool_pcmark = '" + pcmk + "'";
+                        break;
+                    }
+                    if (item.Cells["Piecemark"].Value.ToString() != "")
+                    {
 
-                        DataRow[] foundRows = SPOOLtable_table.Select(find);
-                        int fr = foundRows.Count();
-                        if (fr >= 1)
+                        if (SPOOLtable_table != null)
                         {
+                            string pcmk = item.Cells["Piecemark"].Value.ToString();
+                            string find = "spool_pcmark = '" + pcmk + "'";
 
-                            if (SPOOLtable_table.Rows[0]["spool"] != DBNull.Value)
+                            DataRow[] foundRows = SPOOLtable_table.Select(find);
+                            int fr = foundRows.Count();
+                            if (fr >= 1)
                             {
-                                item.Cells["Spool Number"].Value = foundRows[0]["spool"].ToString();
+
+                                if (SPOOLtable_table.Rows[0]["spool"] != DBNull.Value)
+                                {
+                                    item.Cells["Spool Number"].Value = foundRows[0]["spool"].ToString();
+                                }
+                                if (SPOOLtable_table.Rows[0]["isoLog_recvDate"].ToString() != null)
+                                {
+                                    item.Cells["recdate"].Value = foundRows[0]["isoLog_recvDate"].ToString();
+                                }
+                                if (SPOOLtable_table.Rows[0]["isoLog_LineNum"].ToString() != null)
+                                {
+                                    item.Cells["linenum"].Value = foundRows[0]["isoLog_LineNum"].ToString();
+                                }
+                                if (SPOOLtable_table.Rows[0]["isoLog_revNum"].ToString() != null)
+                                {
+                                    item.Cells["revnum"].Value = foundRows[0]["isoLog_revNum"].ToString();
+                                }
+                                if (SPOOLtable_table.Rows[0]["isoLog_LineSize"].ToString() != null)
+                                {
+                                    item.Cells["linesize"].Value = foundRows[0]["isoLog_LineSize"].ToString();
+                                }
                             }
-                            if (SPOOLtable_table.Rows[0]["isoLog_recvDate"].ToString() != null)
-                            {
-                                item.Cells["recdate"].Value = foundRows[0]["isoLog_recvDate"].ToString();
-                            }
-                            if (SPOOLtable_table.Rows[0]["isoLog_LineNum"].ToString() != null)
-                            {
-                                item.Cells["linenum"].Value = foundRows[0]["isoLog_LineNum"].ToString();
-                            }
-                            if (SPOOLtable_table.Rows[0]["isoLog_revNum"].ToString() != null)
-                            {
-                                item.Cells["revnum"].Value = foundRows[0]["isoLog_revNum"].ToString();
-                            }
-                            if (SPOOLtable_table.Rows[0]["isoLog_LineSize"].ToString() != null)
-                            {
-                                item.Cells["linesize"].Value = foundRows[0]["isoLog_LineSize"].ToString();
-                            }
+
                         }
 
                     }
 
-                }
-                DataTable ISOLOGtable_table = isologchecker.GetData(item.Cells["Pipeline_Reference"].Value.ToString());
-                if (ISOLOGtable_table.Rows.Count != 0)
-                {
-                    item.Cells["Material Code"].Value = ISOLOGtable_table.Rows[0]["isoLog_mat"].ToString();
-                }
-                if (ISOLOGtable_table.Rows.Count != 0)
-                {
-                    item.Cells["Source"].Value = "T" + ISOLOGtable_table.Rows[ISOLOGtable_table.Rows.Count - 1]["isoLog_transNum"].ToString();
-                }
-                if (ISOLOGtable_table.Rows.Count == 1)
-                {
-                    item.Cells["Source"].Value = "T" + ISOLOGtable_table.Rows[0]["isoLog_transNum"].ToString();
-                }
-                if (ISOLOGtable_table.Rows.Count >= 2)
-                {
-                    item.Cells["Source"].Value = "T" + ISOLOGtable_table.Rows[ISOLOGtable_table.Rows.Count - 1]["isoLog_transNum"].ToString() + "-REV";
-                }
+                    if (ISOLOGtable_table != null)
+                    {
+                        string refdwg = item.Cells["Pipeline_Reference"].Value.ToString();
+                        string find2 = "isoLog_refDwg = " + refdwg.ToString();
+                        ISOLOGtable_table.DefaultView.Sort = "isoLog_transNum DESC";
 
+                        DataRow[] foundRows2 = ISOLOGtable_table.Select(string.Format("isoLog_refDwg ='{0}'", refdwg.ToString()));
+                        int fr2 = foundRows2.Count();
+                        if (fr2 >= 1)
+                        {
+
+                            if (fr2 != 0)
+                            {
+                                item.Cells["Material Code"].Value = foundRows2[0]["isoLog_mat"].ToString();
+                            }
+                            if (fr2 != 0)
+                            {
+                                item.Cells["Source"].Value = "T" + foundRows2[0]["isoLog_transNum"].ToString();
+                            }
+                        }
+                    }
+                }
             }
 
-            }
+            
 
              catch { }
             dataGridView1.Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.Automatic);
@@ -1705,6 +1708,46 @@ null, this.dataGridView2, new object[] { true });
         {
             pictureBox2.Visible = false;
             dataGridView1.Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.Automatic);
+
+                        var vv = dataGridView1.Rows.Cast<DataGridViewRow>()
+               .Where(x => !x.IsNewRow)                   // either..
+               .Where(x => x.Cells["Source"].Value != null) //..or or both
+               .Select(x => x.Cells["Source"].Value.ToString())
+               .Distinct()
+               .ToList();
+            vv.Sort();
+            var messageSOURCE = string.Join(Environment.NewLine, vv.ToArray());
+            //MessageBox.Show(message, "List of Transmittal's");
+
+            var vv1 = dataGridView1.Rows.Cast<DataGridViewRow>()
+           .Where(x => !x.IsNewRow)                   // either..
+           .Where(x => x.Cells["Description"].Value != null)
+           .Where(x => x.Cells["Group"].Value.ToString().Contains("FAB"))//..or or both
+           .Select(x => x.Cells["Size"].Value.ToString() + x.Cells["Description"].Value.ToString())
+           .Distinct()
+           .ToList();
+            var messageDISTINCT = vv1.Count().ToString();
+            //MessageBox.Show(message, "Count of distinct items");
+
+            var vv2 = dataGridView1.Rows.Cast<DataGridViewRow>()
+                           .Where(x => !x.IsNewRow)                   // either..
+                           .Where(x => x.Cells["Piping_Spec"].Value != null) //..or or both
+                           .Select(x => x.Cells["Piping_Spec"].Value.ToString())
+                           .Distinct()
+                           .ToList();
+            var messageSPEC = string.Join(Environment.NewLine, vv2.ToArray());
+            //MessageBox.Show(message, "List of Spec's");
+
+
+                            var vv3 = dataGridView1.Rows.Cast<DataGridViewRow>()
+                .Where(x => !x.IsNewRow)                   // either..
+                .Where(x => x.Cells["Description"].Value != null)
+                .Select(x => x.Cells["Pipeline_Reference"].Value.ToString())
+                .Distinct()
+                .ToList();
+            var messageISOS = vv3.Count().ToString();
+            MessageBox.Show("Count of iso: " + messageISOS + Environment.NewLine + Environment.NewLine + "Count of distinct items: " + messageDISTINCT + Environment.NewLine + Environment.NewLine + "List of Transmittal's: " + Environment.NewLine + messageSOURCE + Environment.NewLine + Environment.NewLine + "List of Spec's: " + Environment.NewLine + messageSPEC, jobnum + " " + trans +" Report");
+
         }
 
 
@@ -2151,7 +2194,10 @@ null, this.dataGridView2, new object[] { true });
                     }
                     if (SPOOLtable_table_threaded.Rows[0]["isoLog_revNum"].ToString() != null)
                     {
-                        dataGridView1.Rows[i].Cells["revnum"].Value = foundRows_threaded1[0]["isoLog_revNum"].ToString();
+                        if (foundRows_threaded1[0]["isoLog_revNum"].ToString() != null)
+                        {
+                            dataGridView1.Rows[i].Cells["revnum"].Value = foundRows_threaded1[0]["isoLog_revNum"].ToString();
+                        }
                     }
                     if (SPOOLtable_table_threaded.Rows[0]["isoLog_LineSize"].ToString() != null)
                     {
@@ -2206,6 +2252,68 @@ null, this.dataGridView2, new object[] { true });
         {
             //if (this.Cursor != Cursors.WaitCursor)
             //    Cursor.Current = Cursors.Arrow;
+        }
+
+        private void includeFieldToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dataTable3.AcceptChanges();
+            DataTable dtFromGrid = new DataTable();
+            dtFromGrid = (dataGridView1.DataSource as DataTable).Copy();
+
+            List<DataRow> RowsToDelete = new List<DataRow>();
+            foreach (DataRow row in dtFromGrid.Rows)
+                if (row["Group"].ToString() != null &&
+                     row["Group"].ToString().Contains("SUPPORTS")) RowsToDelete.Add(row);
+            foreach (DataRow row in RowsToDelete) dtFromGrid.Rows.Remove(row);
+            RowsToDelete.Clear();
+
+            try
+            {
+                dtFromGrid.Columns.Remove("Material Code");
+                dtFromGrid.Columns.Remove("Spool Number");
+                dtFromGrid.Columns.Remove("recdate");
+                dtFromGrid.Columns.Remove("linenum");
+                dtFromGrid.Columns.Remove("revnum");
+                dtFromGrid.Columns.Remove("linesize");
+                dtFromGrid.Columns.Remove("Index");
+                DataSet ds = new DataSet();
+                ds.Tables.Clear();
+                ds.Tables.Add(dtFromGrid);
+                ExportDataSetToExcelAndMove(ds, jobnum + "_" + trans);
+
+            }
+            catch { }
+        }
+
+        private void withoutFieldMaterialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dataTable3.AcceptChanges();
+            DataTable dtFromGrid = new DataTable();
+            dtFromGrid = (dataGridView1.DataSource as DataTable).Copy();
+
+            List<DataRow> RowsToDelete = new List<DataRow>();
+            foreach (DataRow row in dtFromGrid.Rows)
+                if (row["Group"].ToString() != null &&
+                     row["Group"].ToString().Contains("EREC") || row["Group"].ToString().Contains("SUPPORTS")) RowsToDelete.Add(row);
+            foreach (DataRow row in RowsToDelete) dtFromGrid.Rows.Remove(row);
+            RowsToDelete.Clear();
+
+            try
+            {
+                dtFromGrid.Columns.Remove("Material Code");
+                dtFromGrid.Columns.Remove("Spool Number");
+                dtFromGrid.Columns.Remove("recdate");
+                dtFromGrid.Columns.Remove("linenum");
+                dtFromGrid.Columns.Remove("revnum");
+                dtFromGrid.Columns.Remove("linesize");
+                dtFromGrid.Columns.Remove("Index");
+                DataSet ds = new DataSet();
+                ds.Tables.Clear();
+                ds.Tables.Add(dtFromGrid);
+                ExportDataSetToExcelAndMove(ds, jobnum + "_" + trans);
+
+            }
+            catch { }
         }
 
         public static String GetTimestamp(DateTime value)

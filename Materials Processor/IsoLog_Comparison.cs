@@ -116,6 +116,7 @@ namespace MTO_Report_Processor
                 dataGridView1.DefaultCellStyle.ForeColor = Color.White;
                 dataGridView2.DefaultCellStyle.BackColor = Color.Red;
                 dataGridView2.DefaultCellStyle.ForeColor = Color.White;
+                label1.ForeColor = Color.White;
 
 
             }
@@ -151,7 +152,7 @@ namespace MTO_Report_Processor
                 dataGridView2.RowHeadersDefaultCellStyle.BackColor = Color.White;
                 dataGridView2.RowHeadersDefaultCellStyle.ForeColor = Color.Black;
                 dataGridView2.EnableHeadersVisualStyles = false;
-
+                label1.ForeColor = Color.White;
 
 
 
@@ -215,6 +216,15 @@ namespace MTO_Report_Processor
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This report performs the IsoLog Check." 
+                + Environment.NewLine + Environment.NewLine + Environment.NewLine +
+                "If a line is red in the grid on the right hand side, then the IDF/PCF WAS ran, but it was not found to exist within the transmittals that were selected for this check. Confirm that the RefDwg and Pcmk match the indexing instructions." 
+                + Environment.NewLine + Environment.NewLine + Environment.NewLine +
+                "If a line is red in the grid on the left, then the IDF/PCF was NOT ran or there is a typo in the RefDwg / Pcmk of the report from spoolgen. Generally this means an IDF failed to run or generate a report from spoolgen OR there is a typo either in indexing or the spoolgen report that needs to be corrected.","Help");
         }
     }
 }

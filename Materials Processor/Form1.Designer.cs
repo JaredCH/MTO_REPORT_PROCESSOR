@@ -116,6 +116,8 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.includeFieldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withoutFieldMaterialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             button3 = new System.Windows.Forms.Button();
             button2 = new System.Windows.Forms.Button();
             button1 = new System.Windows.Forms.Button();
@@ -133,6 +135,56 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // button3
+            // 
+            button3.BackColor = System.Drawing.Color.Transparent;
+            button3.BackgroundImage = global::MTO_Report_Processor.Properties.Resources.Generate_STO_image__2_;
+            button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            button3.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            button3.Location = new System.Drawing.Point(461, 27);
+            button3.Name = "button3";
+            button3.Size = new System.Drawing.Size(62, 37);
+            button3.TabIndex = 20;
+            button3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip1.SetToolTip(button3, "Generate STO Report");
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button2
+            // 
+            button2.BackColor = System.Drawing.Color.Transparent;
+            button2.BackgroundImage = global::MTO_Report_Processor.Properties.Resources.ISOLOG_check_image__2_;
+            button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            button2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            button2.Location = new System.Drawing.Point(373, 27);
+            button2.Name = "button2";
+            button2.Size = new System.Drawing.Size(62, 37);
+            button2.TabIndex = 19;
+            button2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip1.SetToolTip(button2, "Isolog Check");
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            button1.BackColor = System.Drawing.Color.Transparent;
+            button1.BackgroundImage = global::MTO_Report_Processor.Properties.Resources.GED_image__2_;
+            button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            button1.Location = new System.Drawing.Point(285, 26);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(62, 38);
+            button1.TabIndex = 18;
+            button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip1.SetToolTip(button1, "Get External Data");
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += new System.EventHandler(this.button1_Click_1);
+            button1.MouseEnter += new System.EventHandler(this.button1_MouseEnter);
+            button1.MouseLeave += new System.EventHandler(this.button1_MouseLeave);
             // 
             // dataGridView1
             // 
@@ -265,6 +317,9 @@
             // 
             // toolStripMenuItem4
             // 
+            this.toolStripMenuItem4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.withoutFieldMaterialToolStripMenuItem,
+            this.includeFieldToolStripMenuItem});
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(231, 22);
             this.toolStripMenuItem4.Text = "Generate Upload Template";
@@ -806,56 +861,6 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Visible = false;
             // 
-            // button3
-            // 
-            button3.BackColor = System.Drawing.Color.Transparent;
-            button3.BackgroundImage = global::MTO_Report_Processor.Properties.Resources.Generate_STO_image__2_;
-            button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            button3.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            button3.Location = new System.Drawing.Point(461, 27);
-            button3.Name = "button3";
-            button3.Size = new System.Drawing.Size(62, 37);
-            button3.TabIndex = 20;
-            button3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip1.SetToolTip(button3, "Generate STO Report");
-            button3.UseVisualStyleBackColor = false;
-            button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button2
-            // 
-            button2.BackColor = System.Drawing.Color.Transparent;
-            button2.BackgroundImage = global::MTO_Report_Processor.Properties.Resources.ISOLOG_check_image__2_;
-            button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            button2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            button2.Location = new System.Drawing.Point(373, 27);
-            button2.Name = "button2";
-            button2.Size = new System.Drawing.Size(62, 37);
-            button2.TabIndex = 19;
-            button2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip1.SetToolTip(button2, "Isolog Check");
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            button1.BackColor = System.Drawing.Color.Transparent;
-            button1.BackgroundImage = global::MTO_Report_Processor.Properties.Resources.GED_image__2_;
-            button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            button1.Location = new System.Drawing.Point(285, 26);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(62, 38);
-            button1.TabIndex = 18;
-            button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip1.SetToolTip(button1, "Get External Data");
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += new System.EventHandler(this.button1_Click_1);
-            button1.MouseEnter += new System.EventHandler(this.button1_MouseEnter);
-            button1.MouseLeave += new System.EventHandler(this.button1_MouseLeave);
-            // 
             // pictureBox3
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
@@ -879,6 +884,20 @@
             this.pictureBox1.TabIndex = 13;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // includeFieldToolStripMenuItem
+            // 
+            this.includeFieldToolStripMenuItem.Name = "includeFieldToolStripMenuItem";
+            this.includeFieldToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.includeFieldToolStripMenuItem.Text = "Shop and Field Material";
+            this.includeFieldToolStripMenuItem.Click += new System.EventHandler(this.includeFieldToolStripMenuItem_Click);
+            // 
+            // withoutFieldMaterialToolStripMenuItem
+            // 
+            this.withoutFieldMaterialToolStripMenuItem.Name = "withoutFieldMaterialToolStripMenuItem";
+            this.withoutFieldMaterialToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.withoutFieldMaterialToolStripMenuItem.Text = "Shop Material";
+            this.withoutFieldMaterialToolStripMenuItem.Click += new System.EventHandler(this.withoutFieldMaterialToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -1009,6 +1028,8 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
         private System.ComponentModel.BackgroundWorker backgroundWorker4;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolStripMenuItem includeFieldToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem withoutFieldMaterialToolStripMenuItem;
     }
 }
 
