@@ -694,43 +694,7 @@ null, this.dataGridView2, new object[] { true });
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            string vlvfilter = Microsoft.VisualBasic.Interaction.InputBox("Type the string of characters to filter for; ex: 'VA', 'VLV', 'Valve'.", "Valve Tags", "");
-            string tagornum = Microsoft.VisualBasic.Interaction.InputBox("Either type 'Tag' to use the Item_Code or a count of characters to use from the end of the description.", "Valve Tags", "Default");
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                try
-                {
 
-                    vlvfilter = vlvfilter.ToUpper();
-                    tagornum = tagornum.ToUpper();
-
-                    string descfiltercheck = row.Cells["Description"].Value.ToString();
-                    if (descfiltercheck.Contains(vlvfilter))
-                    {
-
-                        switch (tagornum)
-                        {
-                            case "TAG":
-                                {
-                                    row.Cells["Tag"].Value = row.Cells["Item_Code"].Value.ToString();
-                                    break;
-                                }
-                            default:
-                                {
-                                    int theydidanum = Convert.ToInt32(tagornum);
-                                    string itemtagnew = row.Cells["Description"].Value.ToString();
-                                    row.Cells["Tag"].Value = itemtagnew.Substring(itemtagnew.Length - theydidanum);
-                                    break;
-                                }
-                        }
-                    }
-                }
-
-
-                catch
-                { }
-
-            }
             
         }
 
@@ -919,7 +883,7 @@ null, this.dataGridView2, new object[] { true });
             Outlook.MailItem mailItem = app.CreateItem(Outlook.OlItemType.olMailItem);
             mailItem.Subject = jobnum + " " + trans + " STO Report";
             mailItem.To = "kenneth.smith@EpicPiping.com; adam.martin@epicpiping.com";
-            mailItem.CC = "andre.naquin@EpicPiping.com; kevin.flores@epicpiping.com; Monty.Cornes@EpicPiping.com; travis.stromain@EpicPiping.com";
+            mailItem.CC = "andre.naquin@EpicPiping.com; kevin.flores@epicpiping.com; Monty.Cornes@EpicPiping.com; travis.stromain@EpicPiping.com; Jared.Hicks@EpicPiping.com";
             //mailItem.Body = "The following Has been uploaded into the Master STO for job." + ;
             //mailItem.Attachments.Add(stopath);//logPath is a string holding path to the log.txt file
             //mailItem.Importance = Outlook.OlImportance.olImportanceHigh;
@@ -1911,7 +1875,7 @@ null, this.dataGridView2, new object[] { true });
 
         private void toolStripMenuItem17_Click(object sender, EventArgs e)
         {
-            string ppendtext = Microsoft.VisualBasic.Interaction.InputBox("Text to Prepend", "Prepend Cell - Selected Cells", "Default");
+            string ppendtext = Microsoft.VisualBasic.Interaction.InputBox("Text to Append", "Append Cell - Selected Cells", "Default");
             foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
             {
                 cell.Value = cell.Value.ToString() + ppendtext;
@@ -2314,6 +2278,277 @@ null, this.dataGridView2, new object[] { true });
 
             }
             catch { }
+        }
+
+        private void toolStripMenuItem7_Click_1(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                try
+                {
+                    string replaceing = row.Cells["Piecemark"].Value.ToString();
+                    string middlesegment = row.Cells["Piecemark"].Value.ToString().Substring(row.Cells["Piecemark"].Value.ToString().Length - 4, 2);
+                    string lastsegment = row.Cells["Piecemark"].Value.ToString().Substring(row.Cells["Piecemark"].Value.ToString().Length - 2, 2);
+                    string firstsegment = row.Cells["Piecemark"].Value.ToString().Substring(0, row.Cells["Piecemark"].Value.ToString().Length - 4);
+                    string newtext = "";
+                    string newtextmid = "";
+                    switch (lastsegment)
+                    {
+                        default:
+                            newtext = lastsegment;
+                            break;
+                        case "-1":
+                            newtext = "-01";
+                            break;
+                        case "-2":
+                            newtext = "-02";
+                            break;
+                        case "-3":
+                            newtext = "-03";
+                            break;
+                        case "-4":
+                            newtext = "-04";
+                            break;
+                        case "-5":
+                            newtext = "-05";
+                            break;
+                        case "-6":
+                            newtext = "-06";
+                            break;
+                        case "-7":
+                            newtext = "-07";
+                            break;
+                        case "-8":
+                            newtext = "-08";
+                            break;
+                        case "-9":
+                            newtext = "-09";
+                            break;
+                    }
+                    switch (middlesegment)
+                    {
+                        default:
+                            newtextmid = middlesegment;
+                            break;
+                        case "-1":
+                            newtextmid = "-01";
+                            break;
+                        case "-2":
+                            newtextmid = "-02";
+                            break;
+                        case "-3":
+                            newtextmid = "-03";
+                            break;
+                        case "-4":
+                            newtextmid = "-04";
+                            break;
+                        case "-5":
+                            newtextmid = "-05";
+                            break;
+                        case "-6":
+                            newtextmid = "-06";
+                            break;
+                        case "-7":
+                            newtextmid = "-07";
+                            break;
+                        case "-8":
+                            newtextmid = "-08";
+                            break;
+                        case "-9":
+                            newtextmid = "-09";
+                            break;
+                    }
+
+                    row.Cells["Piecemark"].Value = replaceing.Substring(row.Cells["Piecemark"].Value.ToString().Length - 2, 2).Replace(lastsegment, firstsegment + newtextmid + newtext);
+                }
+                catch
+                { }
+            }
+        }
+
+        private void toolStripMenuItem12_Click_1(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                try
+                {
+                    string replaceing = row.Cells["Pipeline_Reference"].Value.ToString();
+                    string lastsegment = row.Cells["Pipeline_Reference"].Value.ToString().Substring(row.Cells["Pipeline_Reference"].Value.ToString().Length - 2, 2);
+                    string firstsegment = row.Cells["Pipeline_Reference"].Value.ToString().Substring(0, row.Cells["Pipeline_Reference"].Value.ToString().Length - 2);
+                    string newtext = "";
+                    switch (lastsegment)
+                    {
+                        default:
+                            newtext = lastsegment;
+                            break;
+                        case "-1":
+                            newtext = "-01";
+                            break;
+                        case "-2":
+                            newtext = "-02";
+                            break;
+                        case "-3":
+                            newtext = "-03";
+                            break;
+                        case "-4":
+                            newtext = "-04";
+                            break;
+                        case "-5":
+                            newtext = "-05";
+                            break;
+                        case "-6":
+                            newtext = "-06";
+                            break;
+                        case "-7":
+                            newtext = "-07";
+                            break;
+                        case "-8":
+                            newtext = "-08";
+                            break;
+                        case "-9":
+                            newtext = "-09";
+                            break;
+
+
+                    }
+                    row.Cells["Pipeline_Reference"].Value = replaceing.Substring(row.Cells["Pipeline_Reference"].Value.ToString().Length - 2, 2).Replace(lastsegment, firstsegment + newtext);
+                }
+                catch
+                { }
+            }
+        }
+
+        private void itemCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string vlvfilter = Microsoft.VisualBasic.Interaction.InputBox("Type the string of characters to filter for; ex: 'VA', 'VLV', 'Valve'.", "Valve Tags", "");
+            //string tagornum = Microsoft.VisualBasic.Interaction.InputBox("Type 'Tag' to use the Item_Code or a count of characters to use from the end of the description.", "Valve Tags", "Default");
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                try
+                {
+
+                    vlvfilter = vlvfilter.ToUpper();
+                    //tagornum = tagornum.ToUpper();
+
+                    string descfiltercheck = row.Cells["Description"].Value.ToString();
+                    if (descfiltercheck.Contains(vlvfilter))
+                    {
+
+
+                        row.Cells["Tag"].Value = row.Cells["Item_Code"].Value.ToString();
+
+
+                    }
+                    
+                }
+
+
+                catch
+                { }
+
+            }
+        }
+
+        private void fromLeftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string vlvfilter = Microsoft.VisualBasic.Interaction.InputBox("Type the string of characters to filter for; ex: 'VA', 'VLV', 'Valve'.", "Valve Tags", "");
+            string tagornum = Microsoft.VisualBasic.Interaction.InputBox("Type a count of characters to use from the beginning of the description.", "Valve Tags", "Default");
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                try
+                {
+
+                    vlvfilter = vlvfilter.ToUpper();
+                    tagornum = tagornum.ToUpper();
+
+                    string descfiltercheck = row.Cells["Description"].Value.ToString();
+                    if (descfiltercheck.Contains(vlvfilter))
+                    {
+
+
+                        int theydidanum = Convert.ToInt32(tagornum);
+                        string itemtagnew = row.Cells["Description"].Value.ToString();
+                        row.Cells["Tag"].Value = itemtagnew.Substring(0, theydidanum);
+
+
+                    }
+
+                }
+
+
+                catch
+                { }
+
+            }
+        }
+
+        private void fromRightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string vlvfilter = Microsoft.VisualBasic.Interaction.InputBox("Type the string of characters to filter for; ex: 'VA', 'VLV', 'Valve'.", "Valve Tags", "");
+            string tagornum = Microsoft.VisualBasic.Interaction.InputBox("Type a count of characters to use from the end of the description.", "Valve Tags", "Default");
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                try
+                {
+
+                    vlvfilter = vlvfilter.ToUpper();
+                    tagornum = tagornum.ToUpper();
+
+                    string descfiltercheck = row.Cells["Description"].Value.ToString();
+                    if (descfiltercheck.Contains(vlvfilter))
+                    {
+
+
+                                    int theydidanum = Convert.ToInt32(tagornum);
+                                    string itemtagnew = row.Cells["Description"].Value.ToString();
+                                    row.Cells["Tag"].Value = itemtagnew.Substring(itemtagnew.Length - theydidanum);
+                                
+
+                    }
+                    
+                }
+
+
+                catch
+                { }
+
+            }
+        }
+
+        private void fromMiddleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string vlvfilter = Microsoft.VisualBasic.Interaction.InputBox("Type the string of characters to filter for; ex: 'VA', 'VLV', 'Valve'.", "Valve Tags", "");
+            string tagornumstart = Microsoft.VisualBasic.Interaction.InputBox("Type the character position to start from.", "Valve Tags Start Position", "Default");
+            string tagornumend = Microsoft.VisualBasic.Interaction.InputBox("Type the length of characters to go from the start position.", "Valve Tags End Position", "Default");
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                try
+                {
+
+                    vlvfilter = vlvfilter.ToUpper();
+                    //tagornum = tagornum.ToUpper();
+
+                    string descfiltercheck = row.Cells["Description"].Value.ToString();
+                    if (descfiltercheck.Contains(vlvfilter))
+                    {
+
+
+                        int theydidanumstart = Convert.ToInt32(tagornumstart);
+                        int theydidanumend = Convert.ToInt32(tagornumend);
+                        string itemtagnew = row.Cells["Description"].Value.ToString();
+                        row.Cells["Tag"].Value = itemtagnew.Substring(theydidanumstart-1, theydidanumstart);
+
+
+                    }
+
+                }
+
+
+                catch
+                { }
+
+            }
         }
 
         public static String GetTimestamp(DateTime value)
