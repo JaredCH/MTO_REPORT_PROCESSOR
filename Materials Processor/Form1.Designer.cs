@@ -56,6 +56,10 @@
             this.quitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.functionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fromLeftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fromRightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fromMiddleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.appendSpecInfoSpecToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.findAndReplaceRefDwgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,8 +91,10 @@
             this.pcmkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.pcmkToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.pcmkToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripMenuItem();
             this.pcmkToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
@@ -118,12 +124,7 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
-            this.itemCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromLeftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromRightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromMiddleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
             button3 = new System.Windows.Forms.Button();
             button2 = new System.Windows.Forms.Button();
             button1 = new System.Windows.Forms.Button();
@@ -279,6 +280,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(493, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // fileToolStripMenuItem
             // 
@@ -413,6 +415,34 @@
             this.toolStripMenuItem3.Size = new System.Drawing.Size(239, 22);
             this.toolStripMenuItem3.Text = "Tags - Copy Tags (Valves\\Misc)";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // itemCodeToolStripMenuItem
+            // 
+            this.itemCodeToolStripMenuItem.Name = "itemCodeToolStripMenuItem";
+            this.itemCodeToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.itemCodeToolStripMenuItem.Text = "Item-Code";
+            this.itemCodeToolStripMenuItem.Click += new System.EventHandler(this.itemCodeToolStripMenuItem_Click);
+            // 
+            // fromLeftToolStripMenuItem
+            // 
+            this.fromLeftToolStripMenuItem.Name = "fromLeftToolStripMenuItem";
+            this.fromLeftToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.fromLeftToolStripMenuItem.Text = "From Start";
+            this.fromLeftToolStripMenuItem.Click += new System.EventHandler(this.fromLeftToolStripMenuItem_Click);
+            // 
+            // fromRightToolStripMenuItem
+            // 
+            this.fromRightToolStripMenuItem.Name = "fromRightToolStripMenuItem";
+            this.fromRightToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.fromRightToolStripMenuItem.Text = "From End";
+            this.fromRightToolStripMenuItem.Click += new System.EventHandler(this.fromRightToolStripMenuItem_Click);
+            // 
+            // fromMiddleToolStripMenuItem
+            // 
+            this.fromMiddleToolStripMenuItem.Name = "fromMiddleToolStripMenuItem";
+            this.fromMiddleToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.fromMiddleToolStripMenuItem.Text = "From Middle";
+            this.fromMiddleToolStripMenuItem.Click += new System.EventHandler(this.fromMiddleToolStripMenuItem_Click);
             // 
             // appendSpecInfoSpecToolStripMenuItem
             // 
@@ -607,6 +637,7 @@
             this.pcmkToolStripMenuItem,
             this.toolStripMenuItem6,
             this.pcmkToolStripMenuItem2,
+            this.toolStripMenuItem14,
             this.toolStripMenuItem7,
             this.toolStripSeparator4,
             this.pcmkToolStripMenuItem1,
@@ -641,6 +672,13 @@
             this.pcmkToolStripMenuItem2.Text = "Pcmk: \'-#\' > \'-A..\'";
             this.pcmkToolStripMenuItem2.Click += new System.EventHandler(this.pcmkToolStripMenuItem2_Click);
             // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(199, 22);
+            this.toolStripMenuItem7.Text = "Pcmk: \'-#-# > \'-0#-0#\'";
+            this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click_1);
+            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
@@ -652,6 +690,13 @@
             this.pcmkToolStripMenuItem1.Size = new System.Drawing.Size(199, 22);
             this.pcmkToolStripMenuItem1.Text = "RefDwg: \'-\' > \' SH.\'";
             this.pcmkToolStripMenuItem1.Click += new System.EventHandler(this.pcmkToolStripMenuItem1_Click);
+            // 
+            // toolStripMenuItem12
+            // 
+            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(199, 22);
+            this.toolStripMenuItem12.Text = "RefDwg: \'-#\' > \'-0#\'";
+            this.toolStripMenuItem12.Click += new System.EventHandler(this.toolStripMenuItem12_Click_1);
             // 
             // toolStripSeparator7
             // 
@@ -912,47 +957,12 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // toolStripMenuItem7
+            // toolStripMenuItem14
             // 
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(199, 22);
-            this.toolStripMenuItem7.Text = "Pcmk: \'-#-# > \'-0#-0#\'";
-            this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click_1);
-            // 
-            // toolStripMenuItem12
-            // 
-            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(199, 22);
-            this.toolStripMenuItem12.Text = "RefDwg: \'-#\' > \'-0#\'";
-            this.toolStripMenuItem12.Click += new System.EventHandler(this.toolStripMenuItem12_Click_1);
-            // 
-            // itemCodeToolStripMenuItem
-            // 
-            this.itemCodeToolStripMenuItem.Name = "itemCodeToolStripMenuItem";
-            this.itemCodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.itemCodeToolStripMenuItem.Text = "Item-Code";
-            this.itemCodeToolStripMenuItem.Click += new System.EventHandler(this.itemCodeToolStripMenuItem_Click);
-            // 
-            // fromLeftToolStripMenuItem
-            // 
-            this.fromLeftToolStripMenuItem.Name = "fromLeftToolStripMenuItem";
-            this.fromLeftToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.fromLeftToolStripMenuItem.Text = "From Start";
-            this.fromLeftToolStripMenuItem.Click += new System.EventHandler(this.fromLeftToolStripMenuItem_Click);
-            // 
-            // fromRightToolStripMenuItem
-            // 
-            this.fromRightToolStripMenuItem.Name = "fromRightToolStripMenuItem";
-            this.fromRightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.fromRightToolStripMenuItem.Text = "From End";
-            this.fromRightToolStripMenuItem.Click += new System.EventHandler(this.fromRightToolStripMenuItem_Click);
-            // 
-            // fromMiddleToolStripMenuItem
-            // 
-            this.fromMiddleToolStripMenuItem.Name = "fromMiddleToolStripMenuItem";
-            this.fromMiddleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.fromMiddleToolStripMenuItem.Text = "From Middle";
-            this.fromMiddleToolStripMenuItem.Click += new System.EventHandler(this.fromMiddleToolStripMenuItem_Click);
+            this.toolStripMenuItem14.Name = "toolStripMenuItem14";
+            this.toolStripMenuItem14.Size = new System.Drawing.Size(199, 22);
+            this.toolStripMenuItem14.Text = "Pcmk: \'-#\' > \'-0#\'";
+            this.toolStripMenuItem14.Click += new System.EventHandler(this.toolStripMenuItem14_Click_1);
             // 
             // Form1
             // 
@@ -1091,6 +1101,7 @@
         private System.Windows.Forms.ToolStripMenuItem fromLeftToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromRightToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromMiddleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
     }
 }
 

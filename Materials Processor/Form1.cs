@@ -17,7 +17,6 @@ using System.Text;
 using Materials_Processor;
 using System.Collections.Generic;
 using System.Deployment.Application;
-
 using Excel = Microsoft.Office.Interop.Excel;
 using MTO_Report_Processor;
 using Microsoft.Office.Interop.Access;
@@ -31,7 +30,42 @@ using MaterialSkin.Controls;
 using System.Drawing;
 
 //TODO
-//ADD IN RIGHT, LEFT, MIDDLE TEXT EDITING FOR VALVES FROM DESCRIPTION, BOTH FOR NORMAL VALVE FUNCTION AND ON CELL BASIS
+// REPEATE LAST FUNCTION
+//in each function define a name
+//when its ran a global variable is set to the said name
+//on hotkey press, grab global variable name, 
+//if name = blah, do blah
+
+//
+//Convert all blind flanges to FAB/Shop group
+//fig 8 / blank spacers - bleed rings
+// make new form to handle this - check boxes plus textbox for custom
+//
+
+
+//
+//Desc - Append spec info
+//Desc - Append info spec  and or group / keyword
+//Desc - Append info group / keyword
+//based on Group, and or desc keyword
+//
+
+
+// Desc - Find and Replace
+// Desc - find and Append
+// Desc - find and Prepend
+// Cell -Find and Append
+//
+
+//adopt advance datagridview into software.
+//
+//
+//
+//
+//
+//
+
+
 
 namespace Materials_Processor
 {
@@ -39,50 +73,32 @@ namespace Materials_Processor
     {
         //PD_EDWDataSet.jobsTableAdapter jobschcker = new PD_EDWDataSet.jobsTableAdapter();
         MTO_Report_Processor.PD_EDWDataSet1TableAdapters.isoLogTableAdapter isologchecker = new MTO_Report_Processor.PD_EDWDataSet1TableAdapters.isoLogTableAdapter();
-
-
         bool switcher = MTO_Report_Processor.Properties.Settings.Default.Theme;
-
-
         DataTable dataTable3 = new DataTable();
         DataTable SPOOLtable_table_threaded = new DataTable();
-
         List<string> new_ISOS = new List<string>();
         public Form1(List<string>ISOS)
         {
             new_ISOS = ISOS;
         }
-
         string jobnum, trans;
-
         DataTable STOTABLE = new DataTable();
         string logPath = "";
         string stopath = "";
-
-
-
         public Form1()
         {
-
-
-            
-
             InitializeComponent();
             DisplayChangeLog();
-
             MaterialForm f = new MaterialForm();
             MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-
             // Configure color schema
             materialSkinManager.ColorScheme = new ColorScheme(
                 Primary.Blue800, Primary.Blue900,
                 Primary.Blue500, Accent.LightBlue200,
                 TextShade.WHITE
             );
-
-
             typeof(DataGridView).InvokeMember("DoubleBuffered",
             BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
             null, this.dataGridView1, new object[] { true });
@@ -90,21 +106,14 @@ namespace Materials_Processor
 BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
 null, this.dataGridView2, new object[] { true });
             System.IO.Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\MTO Report Processor");
-            
         }
-
-
         string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\MTO Report Processor";
         static DataTable GetDataTableFromCsv(string path, bool isFirstRowHeader)
-
         {
             string header = isFirstRowHeader ? "Yes" : "No";
-
             string pathOnly = Path.GetDirectoryName(path);
             string fileName = Path.GetFileName(path);
-
             string sql = @"SELECT * FROM [" + fileName + "]";
-
             using (OleDbConnection connection = new OleDbConnection(
                       @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + pathOnly +
                       ";Extended Properties=\"Text;HDR=" + header + ";FMT=Delimited($)\""))
@@ -119,27 +128,19 @@ null, this.dataGridView2, new object[] { true });
             }
         }
 
-
         private void DisplayChangeLog()
         {
             if (!ApplicationDeployment.IsNetworkDeployed)
                 return;
-
             if (!ApplicationDeployment.CurrentDeployment.IsFirstRun)
                 return;
-
-            MessageBox.Show("1.) Export and E-mail STO now exports the report and composes an email alerting the material staff that the report has been uploaded, instead of attaching the report to the email.."
+            MessageBox.Show("1.) Updated Valve Tag procedure with more options. "
                 + Environment.NewLine + Environment.NewLine +
-                "2.) Improvements to 'Get External Data'." 
-                + Environment.NewLine + Environment.NewLine +
-                "3.) Corrections to the 'Import from Excel' Function."
-                + Environment.NewLine + Environment.NewLine +
-                "4.) Added options to the Generate Upload Template, to be able to select a Shop only Export or to include Field material."
-                + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
+                "2.) Export and E-mail STO now exports the report and composes an email alerting the material staff that the report has been uploaded, instead of attaching the report to the email.."
+                 + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
                 "If you enoucnter any issues or bugs please contact Jared Hicks (Jared.Hicks@Epicpiping.com)."
                 , "Change Log", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
 
         public DataTable ConvertToDataTable(string filePath, int numberOfColumns)
         {
@@ -149,7 +150,6 @@ null, this.dataGridView2, new object[] { true });
             tbl.Columns.Clear();
             tbl2.Columns.Clear();
             Final.Columns.Clear();
-
             tbl.Columns.Add("Test");
             tbl2.Columns.Add("ISO");
             tbl2.Columns.Add("PCMK");
@@ -166,8 +166,6 @@ null, this.dataGridView2, new object[] { true });
             tbl2.Columns.Add("SIZE2");
             tbl2.Columns.Add("SIZE3");
             tbl2.Columns.Add("CATEGORY");
-
-
             Final.Columns.Add("Production_No");
             Final.Columns.Add("Source");
             Final.Columns.Add("Pipeline_Reference");
@@ -193,16 +191,6 @@ null, this.dataGridView2, new object[] { true });
             Final.Columns.Add("revnum");
             Final.Columns.Add("linesize");
             Final.Columns.Add("Index", Type.GetType("System.Double"));
-
-            
-
-
-
-
-
-
-
-
             string[] lines = System.IO.File.ReadAllLines(filePath);
             foreach (string line in lines)
             {
@@ -282,9 +270,7 @@ null, this.dataGridView2, new object[] { true });
                 {
                     row["SIZE2"] = "4.5";
                 }
-
                 row["SIZE"] = row["SIZE1"] + "x" + row["SIZE2"] + "x0";
-
                 string qty = row["QTY"].ToString();
                 if (qty.Contains("'"))
                 {
@@ -318,37 +304,18 @@ null, this.dataGridView2, new object[] { true });
                     }
                 }
                 catch { }
-
-
                 row["GROUP"] = row["CATEGORY"].ToString() + "_" + row["GROUP"].ToString();
-
-                
                 Final.Rows.Add(jobnum, trans, row["ISO"].ToString(),"","", row["PCMK"].ToString(), row["PIPING_SPEC"].ToString(), row["Item_Code"].ToString(), row["SIZE"].ToString(), row["DESCRIPTION"].ToString(), "", "", row["GROUP"].ToString(), row["QTY"].ToString(), QTY2S, row["UnitOfMEasure"].ToString(), "", "", "MI", DateTime.Now.ToString("MM/dd/yyyy"),"","","","", indexnum.ToString());
                 indexnum++;
             }
             return Final;
         }
 
-
-
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            //dataGridView1.DefaultCellStyle.BackColor = Color.White;
-           // dataGridView1.GridColor = Color.Black;
-           // dataGridView1.DefaultCellStyle.ForeColor = Color.Black;
-
-          //  dataGridView2.DefaultCellStyle.BackColor = Color.White;
-           // dataGridView2.GridColor = Color.Black;
-          //  dataGridView2.DefaultCellStyle.ForeColor = Color.Black;
-
             label3.Text = char.ConvertFromUtf32(0x2191);
             label4.Text = char.ConvertFromUtf32(0x2193);
-            //switcher = MTO_Report_Processor.Properties.Settings.Default.Theme;
             ThemeChanger();
-
-
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -366,10 +333,8 @@ null, this.dataGridView2, new object[] { true });
             MTO_Report_Processor.Properties.Settings.Default.Save();
         }
 
-
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void quitToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -393,7 +358,6 @@ null, this.dataGridView2, new object[] { true });
             }
         }
 
-
         private void appendSpecInfoSpecToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string Spec = Microsoft.VisualBasic.Interaction.InputBox("Spec to address", "Append Spec info - Spec", "Default");
@@ -410,7 +374,6 @@ null, this.dataGridView2, new object[] { true });
                 }
                 catch
                 { }
-
             }
         }
 
@@ -428,37 +391,28 @@ null, this.dataGridView2, new object[] { true });
             ds.Tables.Add(dtFromGrid);
             ExportDataSetToExcel(ds, jobnum + "_" + trans);
            // MessageBox.Show("Report Saved , you can find the file " + @"V:\MTO\Spoolgen\Reports\Processed_Reports\" +jobnum + "_" + trans + ".xls");
-
         }
-
-
 
         private void ExportDataSetToExcel(DataSet ds, String template)
         {
-
             try
             {
                 //Creae an Excel application instance
                 Excel.Application excelApp = new Excel.Application();
                 //Create an Excel workbook instance and open it from the predefined location
                 Excel.Workbook excelWorkBook = excelApp.Workbooks.Add(Excel.XlWBATemplate.xlWBATWorksheet);
-
                 Excel.Worksheet excelWorkSheet = excelWorkBook.Worksheets[1];
                 excelWorkSheet.Name = "DeleteMe";
-
                 foreach (DataTable table in ds.Tables)
                 {
                     //Add a new worksheet to workbook with the Datatable name
                     excelWorkSheet = excelWorkBook.Sheets.Add();
-
                     excelWorkSheet.Name = table.TableName;
                     // Column Headers
                     for (int i = 1; i < table.Columns.Count + 1; i++)
                     {
                         excelWorkSheet.Cells[1, i] = table.Columns[i - 1].ColumnName;
-
                     }
-
                     string[,] data = new string[table.Rows.Count, table.Columns.Count];
                     for (int j = 0; j < table.Rows.Count; j++)
                     {
@@ -467,21 +421,16 @@ null, this.dataGridView2, new object[] { true });
                             data[j, k] = table.Rows[j].ItemArray[k].ToString();
                         }
                     }
-
                     excelWorkSheet.Range[excelWorkSheet.Cells[2, 1], excelWorkSheet.Cells[table.Rows.Count + 1, table.Columns.Count]].Value = data;
                 }
-
                 excelWorkSheet = excelWorkBook.Worksheets["DeleteMe"];
                 excelWorkSheet.Delete();
                 excelWorkBook.SaveAs(path +  "\\" + template + ".xlsx");
                 excelWorkBook.Close();
                 excelApp.Quit();
                 stopath = path + "\\" + template + ".xlsx";
-
-
                 DialogResult dresult = new DialogResult();
                 dresult = MessageBox.Show("Open Export File?", "Export Created", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
                 if (dresult == DialogResult.Yes)
                 {
                     Process process = new Process();
@@ -492,45 +441,34 @@ null, this.dataGridView2, new object[] { true });
                 {
                     //File.Copy(path + jobnum + "_" + trans, @"V:\MTO\Spoolgen\Reports\Processed_Reports\" + jobnum + "_" + trans + "_Nextgen.xlsx");
                     //MessageBox.Show("Export created:  " + path + "\\" + template + ".xlsx", "Export Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 }
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
-
-
 
         private void ExportDataSetToExcelAndMove(DataSet ds, String template)
         {
-
             try
             {
                 //Creae an Excel application instance
                 Excel.Application excelApp = new Excel.Application();
                 //Create an Excel workbook instance and open it from the predefined location
                 Excel.Workbook excelWorkBook = excelApp.Workbooks.Add(Excel.XlWBATemplate.xlWBATWorksheet);
-
                 Excel.Worksheet excelWorkSheet = excelWorkBook.Worksheets[1];
                 excelWorkSheet.Name = "DeleteMe";
-
                 foreach (DataTable table in ds.Tables)
                 {
                     //Add a new worksheet to workbook with the Datatable name
                     excelWorkSheet = excelWorkBook.Sheets.Add();
-
                     excelWorkSheet.Name = table.TableName;
                     // Column Headers
                     for (int i = 1; i < table.Columns.Count + 1; i++)
                     {
                         excelWorkSheet.Cells[1, i] = table.Columns[i - 1].ColumnName;
-
                     }
-
                     string[,] data = new string[table.Rows.Count, table.Columns.Count];
                     for (int j = 0; j < table.Rows.Count; j++)
                     {
@@ -539,19 +477,15 @@ null, this.dataGridView2, new object[] { true });
                             data[j, k] = table.Rows[j].ItemArray[k].ToString();
                         }
                     }
-
                     excelWorkSheet.Range[excelWorkSheet.Cells[2, 1], excelWorkSheet.Cells[table.Rows.Count + 1, table.Columns.Count]].Value = data;
                 }
-
                 excelWorkSheet = excelWorkBook.Worksheets["DeleteMe"];
                 excelWorkSheet.Delete();
                 excelWorkBook.SaveAs(path + "\\"  + template + "Nextgen_.xlsx");
                 excelWorkBook.Close();
                 excelApp.Quit();
-
                 DialogResult dresult = new DialogResult();
                 dresult = MessageBox.Show("Open Export File?", "Export Created", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
                 if (dresult == DialogResult.Yes)
                 {
                     Process process = new Process();
@@ -565,18 +499,13 @@ null, this.dataGridView2, new object[] { true });
                     File.Copy(path + "\\" + template + "Nextgen_.xlsx", @"V:\MTO\Spoolgen\Reports\Processed_Reports\" + jobnum + "_" + trans);
                     //   File.Copy(path + jobnum + "_" + trans, @"V:\MTO\Spoolgen\Reports\Processed_Reports\" + jobnum + "_" + trans );
                     MessageBox.Show("Export created:  " + path + "\\" + template + "_Nextgen.xlsx", "Export Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                   
                 }
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
-
-
 
         private void releaseObject(object obj)
         {
@@ -598,16 +527,11 @@ null, this.dataGridView2, new object[] { true });
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
-
-
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-
         }
-
 
        static int n = 10;
         int j = 0;
@@ -615,21 +539,15 @@ null, this.dataGridView2, new object[] { true });
         DataTable dt11 = new DataTable();
         DataColumn column;
         //DataRow row;
+
         public void CreateRecoveryPoint()
         {
-            // dataGridView1.Refresh();
-            // dataGridView1.DataSource = dataGridView1;
-            // dtFromGrid[j] = dataGridView1.DataSource as DataTable;
-            // dtFromGrid[j].AcceptChanges();
-
-
             foreach (DataGridViewColumn col in dataGridView1.Columns)
             {
                 column = new DataColumn();
                 column.ColumnName = col.Name;
                 dt11.Columns.Add(column);
             }
-
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 DataRow dRow = dt11.NewRow();
@@ -649,7 +567,6 @@ null, this.dataGridView2, new object[] { true });
 
         private void dataGridViewDSourceChanged(object sender, EventArgs e)
         {
-            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -659,14 +576,9 @@ null, this.dataGridView2, new object[] { true });
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-
                 }
-
         private void Undodropdownclick(object sender, ToolStripItemClickedEventArgs e)
         {
-
-
         }
 
         private void removeHighlightedLinesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -678,37 +590,29 @@ null, this.dataGridView2, new object[] { true });
                 {
                     dataGridView1.Rows.RemoveAt(dataGridView1.SelectedRows[0].Index);
                 }
-
             }
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-
-            
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
-
-
         }
 
         private void sendSTOToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
-        
+
         List<string> isoLogList = new List<string>();
         List<string> isoList = new List<string>();
         IEnumerable<string> MissingIDF = new List<string>();
@@ -719,12 +623,8 @@ null, this.dataGridView2, new object[] { true });
              isoLogList = myList;
         }
 
-
         private void button2_Click_1(object sender, EventArgs e)
         {
-
-
-
         }
 
         private void toolStripMenuItem7_Click(object sender, EventArgs e)
@@ -758,7 +658,6 @@ null, this.dataGridView2, new object[] { true });
 
         private void generateSTOFromMTOToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             DataTable dt = new DataTable();
             dt.Columns.Add("ID");
             dt.Columns.Add( "Job_No");
@@ -803,40 +702,10 @@ null, this.dataGridView2, new object[] { true });
             dt.Columns.Add("Days_Aged");
             dt.Columns.Add("Item Type");
             dt.Columns.Add("Path");
-
-
-
-
-            
-
-           // dt.Columns.Add("Production_No");
-           // dt.Columns.Add("Source");
-           // dt.Columns.Add("Pipeline_Reference");
-            //dt.Columns.Add("Material Code");
-           // dt.Columns.Add("Spool Number");
-            //dt.Columns.Add("Piecemark");
-            //dt.Columns.Add("Piping_Spec");
-           //dt.Columns.Add("Item_Code");
-            //dt.Columns.Add("Size");
-            //dt.Columns.Add("Description");
-            //dt.Columns.Add("End_Conditions");
-            //dt.Columns.Add("Tag");
-            //dt.Columns.Add("Group");
-            //dt.Columns.Add("Qty");
-            //dt.Columns.Add("Qty2");
-            //dt.Columns.Add("UnitOfMeasure");
-            //dt.Columns.Add("Long_ID");
-            //dt.Columns.Add("JDE_Desc");
-            //dt.Columns.Add("Record_Type");
-            //dt.Columns.Add("Date");
-
-            //int i = 0;
-
          foreach (DataGridViewRow row in dataGridView1.Rows)
                 if (row.Cells["Group"].Value != null &&
-                     row.Cells["Group"].Value.ToString().Contains("_SUPPORTS"))
+                     row.Cells["Group"].Value.ToString().Contains("_SUPPORTS") || row.Cells["Description"].Value.ToString().Contains("PAD"))
                 {
-                    
                     DataRow toInsert = dt.NewRow();
                     toInsert[8] = row.Cells["Description"].Value.ToString(); ;
                     toInsert[7] = row.Cells["Piecemark"].Value.ToString();
@@ -846,22 +715,18 @@ null, this.dataGridView2, new object[] { true });
                     toInsert[4] = row.Cells["Spool Number"].Value.ToString();
                     toInsert[1] = row.Cells["Production_No"].Value.ToString();
                     toInsert[2] = row.Cells["Source"].Value.ToString();
-
                     toInsert[3] = row.Cells["recdate"].Value.ToString();
                     toInsert[5] = row.Cells["Pipeline_Reference"].Value.ToString();
                     toInsert[6] = row.Cells["revnum"].Value.ToString();
                     toInsert[13] = row.Cells["Size"].Value.ToString();
                     toInsert[22] = row.Cells["Qty"].Value.ToString();
                     // dt.Rows.InsertAt(toInsert, 5);  //(row.Cells["Description"].Value.ToString());
-
                     //dt.Rows[i]["itemcode"] = row.Cells["Item_Code"].Value.ToString();
                     //i++;
                     dt.Rows.Add(toInsert);
                 }
             dt.AcceptChanges();
             this.dataGridView2.DataSource = dt;
-
-
             dataGridView2.Refresh();
             MessageBox.Show("Please make sure to set the 'Take off Method' in the STO report below.", "STO Report Reminder", MessageBoxButtons.OK, MessageBoxIcon.Information);
             contextMenuStrip2.Show(Cursor.Position);
@@ -875,8 +740,6 @@ null, this.dataGridView2, new object[] { true });
             ds.Tables.Clear();
             ds.Tables.Add(dtFromGrid);
             ExportDataSetToExcel(ds, jobnum + "_" + trans + "_STO");
-
-
             //Outlook.MailItem mailItem = (Outlook.MailItem)
             // this.Application.CreateItem(Outlook.OlItemType.olMailItem);
             Outlook.Application app = new Outlook.Application();
@@ -889,12 +752,10 @@ null, this.dataGridView2, new object[] { true });
             //mailItem.Importance = Outlook.OlImportance.olImportanceHigh;
             mailItem.Display(mailItem);
             mailItem.HTMLBody = jobnum + " " + trans + " has been uploaded into the Master STO." + mailItem.HTMLBody;
-
         }
 
         private void exportSTOToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             DataTable dtFromGrid = new DataTable();
             dtFromGrid = dataGridView2.DataSource as DataTable;
             DataSet ds = new DataSet();
@@ -905,7 +766,6 @@ null, this.dataGridView2, new object[] { true });
 
         private void toolStripMenuItem9_Click(object sender, EventArgs e)
         {
-
         }
 
         private void toolStripMenuItem10_Click(object sender, EventArgs e)
@@ -922,8 +782,6 @@ null, this.dataGridView2, new object[] { true });
         {
             jobnum = Microsoft.VisualBasic.Interaction.InputBox("Job Number", "New Report Info", "Default");
             trans = Microsoft.VisualBasic.Interaction.InputBox("Transmittal", "New Report Info", "Default");
-
-
             string filePath ="";
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -931,14 +789,11 @@ null, this.dataGridView2, new object[] { true });
                 openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
-
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     //Get the path of specified file
                     filePath = openFileDialog.FileName;
-
                 }
-
                 using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
                 {
                     IExcelDataReader reader;
@@ -950,17 +805,8 @@ null, this.dataGridView2, new object[] { true });
                                             UseHeaderRow = true
                                         }
                                     };
-
                     var dataSets = reader.AsDataSet(conf);
                     var dataTables = dataSets.Tables[0];
-                    //dataTables.Columns.Add("Material Code").SetOrdinal(3);
-                    //dataTables.Columns.Add("Spool Number").SetOrdinal(4);
-                    //dataTables.Columns.Add("recdate");
-                    //dataTables.Columns.Add("linenum");
-                    //dataTables.Columns.Add("revnum");
-                    //dataTables.Columns.Add("linesize");
-                    //dataTables.Columns.Add("Index", Type.GetType("System.Double"));
-
 
                     dataGridView1.DataSource = dataTables;
                     dataGridView1.Columns["Spool Number"].Visible = false;
@@ -972,7 +818,6 @@ null, this.dataGridView2, new object[] { true });
                     dataGridView1.Columns["index"].Visible = true;
                 }
             }
-            
         }
 
         private void toolStripMenuItem12_Click(object sender, EventArgs e)
@@ -1037,8 +882,6 @@ null, this.dataGridView2, new object[] { true });
                         case "-9":
                             newtext = "I";
                             break;
-
-
                     }
                     row.Cells["Piecemark"].Value = replaceing.Substring(row.Cells["Piecemark"].Value.ToString().Length - 2, 2).Replace(lastsegment, firstsegment + newtext);
                 }
@@ -1152,7 +995,6 @@ null, this.dataGridView2, new object[] { true });
                 catch
                 { }
             }
-
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -1210,8 +1052,6 @@ null, this.dataGridView2, new object[] { true });
                         case "-9":
                             newtext = "-I";
                             break;
-
-
                     }
                     row.Cells["Piecemark"].Value = replaceing.Substring(row.Cells["Piecemark"].Value.ToString().Length - 2, 2).Replace(lastsegment, firstsegment + newtext);
                 }
@@ -1259,8 +1099,6 @@ null, this.dataGridView2, new object[] { true });
                         case "-9":
                             newtext = "I";
                             break;
-
-
                     }
                     row.Cells["Piecemark"].Value = replaceing.Substring(row.Cells["Piecemark"].Value.ToString().Length - 2, 2).Replace(lastsegment, firstsegment + newtext);
                 }
@@ -1308,8 +1146,6 @@ null, this.dataGridView2, new object[] { true });
                         case "-9":
                             newtext = "I";
                             break;
-
-
                     }
                     row.Cells["Piecemark"].Value = replaceing.Substring(row.Cells["Piecemark"].Value.ToString().Length - 2, 2).Replace(lastsegment, firstsegment + newtext);
                 }
@@ -1372,7 +1208,6 @@ null, this.dataGridView2, new object[] { true });
 
         private void exportMTOAsSTOAndEmailToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             DataTable dtFromGrid = new DataTable();
             dtFromGrid = (dataGridView1.DataSource as DataTable).Copy();
             DataSet ds = new DataSet();
@@ -1385,16 +1220,11 @@ null, this.dataGridView2, new object[] { true });
                 dtFromGrid.Columns.Remove("revnum");
                 dtFromGrid.Columns.Remove("linesize");
                 dtFromGrid.Columns.Remove("Index");
-                
                 ds.Tables.Clear();
                 ds.Tables.Add(dtFromGrid);
-
             }
             catch { }
-
             ExportDataSetToExcel(ds, jobnum + "_" + trans + "_STO");
-
-
             //Outlook.MailItem mailItem = (Outlook.MailItem)
             // this.Application.CreateItem(Outlook.OlItemType.olMailItem);
             Outlook.Application app = new Outlook.Application();
@@ -1411,18 +1241,15 @@ null, this.dataGridView2, new object[] { true });
 
         private void newToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            
             jobnum = Microsoft.VisualBasic.Interaction.InputBox("Job Number" + Environment.NewLine + "(7 Digit Job Number)", "New Report Info", "");
             trans = Microsoft.VisualBasic.Interaction.InputBox("Transmittal" + Environment.NewLine + " (Please only type the 3 digit Transmittal number)", "New Report Info", "");
             MTO_Report_Processor.Properties.Settings.Default.JobNum = jobnum;
-
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
                 InitialDirectory = @"V:\MTO\Spoolgen\Reports\",
                 Title = "Browse for CSV Report",
                 CheckFileExists = true,
                 CheckPathExists = true,
-
                 DefaultExt = "CSV",
                 Filter = "Csv Files (*.CSV)|*.csv",
                 FilterIndex = 2,
@@ -1432,16 +1259,13 @@ null, this.dataGridView2, new object[] { true });
             };
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                
                 dataTable3 = ConvertToDataTable(openFileDialog1.FileName, 1);
                 dataGridView1.DataSource = dataTable3;
-
             }
             //foreach (DataRow row in dataGridView1.Rows)
             // {
             // this.GetDataBy()
             //}
-
             dataGridView1.Columns["Spool Number"].Visible = false;
             dataGridView1.Columns["Material Code"].Visible = false;
             dataGridView1.Columns["recdate"].Visible = false;
@@ -1449,7 +1273,6 @@ null, this.dataGridView2, new object[] { true });
             dataGridView1.Columns["revnum"].Visible = false;
             dataGridView1.Columns["linesize"].Visible = false;
             dataGridView1.Columns["index"].Visible = false;
-
             string oldtext1 = "\"";
             string newtext1 = "";
             string oldtext2 = ",";
@@ -1460,17 +1283,12 @@ null, this.dataGridView2, new object[] { true });
                 {
                     string replaceing = row.Cells["Description"].Value.ToString();
                     row.Cells["Description"].Value = replaceing.Replace(oldtext2, newtext2);
-
                     //string replaceing2 = row.Cells["CATEGORY"].Value.ToString();
                    // row.Cells["CATEGORY"].Value = replaceing2.Replace(oldtext2, newtext2);
                 }
                 catch
                 { }
-
-
-
                 }
-
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 try
@@ -1480,11 +1298,7 @@ null, this.dataGridView2, new object[] { true });
                 }
                 catch
                 { }
-
-
             }
-
-
             dataGridView1.AutoResizeColumns();
             dataGridView2.AutoResizeColumns();
             dataTable3.AcceptChanges();
@@ -1498,7 +1312,6 @@ null, this.dataGridView2, new object[] { true });
             {
                 File.Move(openFileDialog1.FileName, @"V:\MTO\Spoolgen\Reports\Original_Reports\Material_" + jobnum + "_" + trans + ".csv");
             }
-
             newToolStripMenuItem1.Enabled = false;
         }
 
@@ -1521,9 +1334,6 @@ null, this.dataGridView2, new object[] { true });
         {
             string oldtext = "C-7900-PI"; //Microsoft.VisualBasic.Interaction.InputBox("Text to Replace", "Find and Replace - RefDwg", "Default");
             string newtext = Microsoft.VisualBasic.Interaction.InputBox("Replacing text with", "Find and Replace - RefDwg", "Default");
-
-
-
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 try
@@ -1532,8 +1342,6 @@ null, this.dataGridView2, new object[] { true });
                     string lastsegment = row.Cells["Piecemark"].Value.ToString().Substring(row.Cells["Piecemark"].Value.ToString().Length - 2, 2);
                     string firstsegment = row.Cells["Piecemark"].Value.ToString().Substring(0, row.Cells["Piecemark"].Value.ToString().Length - 2);
                     string newtextletter = "";
-
-
                     switch (lastsegment)
                     {
                         case "-1":
@@ -1590,17 +1398,14 @@ null, this.dataGridView2, new object[] { true });
                     }
                     if (item.Cells["Piecemark"].Value.ToString() != "")
                     {
-
                         if (SPOOLtable_table != null)
                         {
                             string pcmk = item.Cells["Piecemark"].Value.ToString();
                             string find = "spool_pcmark = '" + pcmk + "'";
-
                             DataRow[] foundRows = SPOOLtable_table.Select(find);
                             int fr = foundRows.Count();
                             if (fr >= 1)
                             {
-
                                 if (SPOOLtable_table.Rows[0]["spool"] != DBNull.Value)
                                 {
                                     item.Cells["Spool Number"].Value = foundRows[0]["spool"].ToString();
@@ -1622,22 +1427,17 @@ null, this.dataGridView2, new object[] { true });
                                     item.Cells["linesize"].Value = foundRows[0]["isoLog_LineSize"].ToString();
                                 }
                             }
-
                         }
-
                     }
-
                     if (ISOLOGtable_table != null)
                     {
                         string refdwg = item.Cells["Pipeline_Reference"].Value.ToString();
                         string find2 = "isoLog_refDwg = " + refdwg.ToString();
                         ISOLOGtable_table.DefaultView.Sort = "isoLog_transNum DESC";
-
                         DataRow[] foundRows2 = ISOLOGtable_table.Select(string.Format("isoLog_refDwg ='{0}'", refdwg.ToString()));
                         int fr2 = foundRows2.Count();
                         if (fr2 >= 1)
                         {
-
                             if (fr2 != 0)
                             {
                                 item.Cells["Material Code"].Value = foundRows2[0]["isoLog_mat"].ToString();
@@ -1650,9 +1450,6 @@ null, this.dataGridView2, new object[] { true });
                     }
                 }
             }
-
-            
-
              catch { }
             dataGridView1.Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.Automatic);
             //label3.Visible = false;
@@ -1660,19 +1457,16 @@ null, this.dataGridView2, new object[] { true });
 
         private void backgroundWorker2_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            
         }
 
         private void backgroundWorker2_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             pictureBox2.Visible = false;
             dataGridView1.Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.Automatic);
-
                         var vv = dataGridView1.Rows.Cast<DataGridViewRow>()
                .Where(x => !x.IsNewRow)                   // either..
                .Where(x => x.Cells["Source"].Value != null) //..or or both
@@ -1682,7 +1476,6 @@ null, this.dataGridView2, new object[] { true });
             vv.Sort();
             var messageSOURCE = string.Join(Environment.NewLine, vv.ToArray());
             //MessageBox.Show(message, "List of Transmittal's");
-
             var vv1 = dataGridView1.Rows.Cast<DataGridViewRow>()
            .Where(x => !x.IsNewRow)                   // either..
            .Where(x => x.Cells["Description"].Value != null)
@@ -1692,7 +1485,6 @@ null, this.dataGridView2, new object[] { true });
            .ToList();
             var messageDISTINCT = vv1.Count().ToString();
             //MessageBox.Show(message, "Count of distinct items");
-
             var vv2 = dataGridView1.Rows.Cast<DataGridViewRow>()
                            .Where(x => !x.IsNewRow)                   // either..
                            .Where(x => x.Cells["Piping_Spec"].Value != null) //..or or both
@@ -1701,8 +1493,6 @@ null, this.dataGridView2, new object[] { true });
                            .ToList();
             var messageSPEC = string.Join(Environment.NewLine, vv2.ToArray());
             //MessageBox.Show(message, "List of Spec's");
-
-
                             var vv3 = dataGridView1.Rows.Cast<DataGridViewRow>()
                 .Where(x => !x.IsNewRow)                   // either..
                 .Where(x => x.Cells["Description"].Value != null)
@@ -1711,9 +1501,7 @@ null, this.dataGridView2, new object[] { true });
                 .ToList();
             var messageISOS = vv3.Count().ToString();
             MessageBox.Show("Count of iso: " + messageISOS + Environment.NewLine + Environment.NewLine + "Count of distinct items: " + messageDISTINCT + Environment.NewLine + Environment.NewLine + "List of Transmittal's: " + Environment.NewLine + messageSOURCE + Environment.NewLine + Environment.NewLine + "List of Spec's: " + Environment.NewLine + messageSPEC, jobnum + " " + trans +" Report");
-
         }
-
 
         private void ThemeChanger()
         {
@@ -1722,7 +1510,6 @@ null, this.dataGridView2, new object[] { true });
                 MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
                 materialSkinManager.AddFormToManage(this);
                 materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-
                 // Configure color schema
                 materialSkinManager.ColorScheme = new ColorScheme(
                     Primary.BlueGrey800, Primary.BlueGrey900,
@@ -1739,13 +1526,11 @@ null, this.dataGridView2, new object[] { true });
                 dataGridView1.EnableHeadersVisualStyles = false;
                 contextMenuStrip1.ForeColor = Color.White;
                 contextMenuStrip2.ForeColor = Color.White;
-
                 label1.ForeColor = Color.White;
                 label2.ForeColor = Color.White;
                 label3.ForeColor = Color.White;
                 label4.ForeColor = Color.White;
                 //label3.ForeColor = Color.White;
-
                 dataGridView2.DefaultCellStyle.BackColor = Color.DimGray;
                 dataGridView2.GridColor = Color.WhiteSmoke;
                 dataGridView2.DefaultCellStyle.ForeColor = Color.White;
@@ -1762,16 +1547,12 @@ null, this.dataGridView2, new object[] { true });
                 MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
                 materialSkinManager.AddFormToManage(this);
                 materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-
                 // Configure color schema
                 materialSkinManager.ColorScheme = new ColorScheme(
                     Primary.Blue800, Primary.Blue900,
                     Primary.Blue500, Accent.LightBlue200,
                     TextShade.WHITE
                 );
-
-
-
                 dataGridView1.DefaultCellStyle.BackColor = Color.White;
                 dataGridView1.GridColor = Color.Black;
                 dataGridView1.DefaultCellStyle.ForeColor = Color.Black;
@@ -1782,15 +1563,11 @@ null, this.dataGridView2, new object[] { true });
                 dataGridView1.EnableHeadersVisualStyles = false;
                 contextMenuStrip1.ForeColor = Color.Black;
                 contextMenuStrip2.ForeColor = Color.White;
-                 
-                
-
                 label1.ForeColor = Color.Black;
                 label2.ForeColor = Color.Black;
                 label3.ForeColor = Color.Black;
                 label4.ForeColor = Color.Black;
                 //label3.ForeColor = Color.Black;
-
                 dataGridView2.DefaultCellStyle.BackColor = Color.White;
                 dataGridView2.GridColor = Color.Black;
                 dataGridView2.DefaultCellStyle.ForeColor = Color.Black;
@@ -1801,28 +1578,17 @@ null, this.dataGridView2, new object[] { true });
                 dataGridView2.EnableHeadersVisualStyles = false;
                 contextMenuStrip1.ForeColor = Color.Black;
                 contextMenuStrip2.ForeColor = Color.Black;
-
             }
-            
         }
-    
-
-
-
-
 
     private void pictureBox1_Click(object sender, EventArgs e)
     {
             switcher = !switcher;
             ThemeChanger();
-
     }
-
-            
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
         }
 
         private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1839,8 +1605,6 @@ null, this.dataGridView2, new object[] { true });
         {
             Process.Start(@"V:\MTO\exe tools\MTO Report Processor\MTO_Report_Tool_Find_and_Replace.gif");
         }
-
-
 
         private void label3_Click(object sender, EventArgs e)
         {
@@ -1861,7 +1625,6 @@ null, this.dataGridView2, new object[] { true });
 
         private void addRowToSTOToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void toolStripMenuItem16_Click(object sender, EventArgs e)
@@ -1900,25 +1663,19 @@ null, this.dataGridView2, new object[] { true });
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
         }
 
         private void testToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             dataTable3.AcceptChanges();
             dataGridView1.Refresh();
-
             DataView view = new DataView(dataTable3);
             DataTable distinctValues = view.ToTable(true, "Pipeline_Reference");
-            
             MTO_Report_Processor.Properties.Settings.Default.isotakeofflist.Clear();
-
             foreach (DataRow row in distinctValues.Rows)
             {
                 MTO_Report_Processor.Properties.Settings.Default.isotakeofflist.Add(row["Pipeline_Reference"].ToString());
             }
-
-
             var myForm = new IsoLogForm();
             myForm.Show();
         }
@@ -1933,18 +1690,13 @@ null, this.dataGridView2, new object[] { true });
         {
             dataTable3.AcceptChanges();
             dataGridView1.Refresh();
-
             DataView view = new DataView(dataTable3);
             DataTable distinctValues = view.ToTable(true, "Pipeline_Reference");
-
             MTO_Report_Processor.Properties.Settings.Default.isotakeofflist.Clear();
-
             foreach (DataRow row in distinctValues.Rows)
             {
                 MTO_Report_Processor.Properties.Settings.Default.isotakeofflist.Add(row["Pipeline_Reference"].ToString());
             }
-
-
             var myForm = new IsoLogForm();
             myForm.Show();
         }
@@ -1996,39 +1748,10 @@ null, this.dataGridView2, new object[] { true });
             dt.Columns.Add("Item Type");
             dt.Columns.Add("Path");
 
-
-
-
-
-
-            // dt.Columns.Add("Production_No");
-            // dt.Columns.Add("Source");
-            // dt.Columns.Add("Pipeline_Reference");
-            //dt.Columns.Add("Material Code");
-            // dt.Columns.Add("Spool Number");
-            //dt.Columns.Add("Piecemark");
-            //dt.Columns.Add("Piping_Spec");
-            //dt.Columns.Add("Item_Code");
-            //dt.Columns.Add("Size");
-            //dt.Columns.Add("Description");
-            //dt.Columns.Add("End_Conditions");
-            //dt.Columns.Add("Tag");
-            //dt.Columns.Add("Group");
-            //dt.Columns.Add("Qty");
-            //dt.Columns.Add("Qty2");
-            //dt.Columns.Add("UnitOfMeasure");
-            //dt.Columns.Add("Long_ID");
-            //dt.Columns.Add("JDE_Desc");
-            //dt.Columns.Add("Record_Type");
-            //dt.Columns.Add("Date");
-
-            //int i = 0;
-
             foreach (DataGridViewRow row in dataGridView1.Rows)
                 if (row.Cells["Group"].Value != null &&
-                     row.Cells["Group"].Value.ToString().Contains("_SUPPORTS"))
-                {
-
+                     row.Cells["Group"].Value.ToString().Contains("_SUPPORTS") || row.Cells["Description"].Value.ToString().Contains("PAD"))
+                    {
                     DataRow toInsert = dt.NewRow();
                     toInsert[8] = row.Cells["Description"].Value.ToString(); ;
                     toInsert[7] = row.Cells["Piecemark"].Value.ToString();
@@ -2038,22 +1761,16 @@ null, this.dataGridView2, new object[] { true });
                     toInsert[4] = row.Cells["Spool Number"].Value.ToString();
                     toInsert[1] = row.Cells["Production_No"].Value.ToString();
                     toInsert[2] = row.Cells["Source"].Value.ToString();
-
                     toInsert[3] = row.Cells["recdate"].Value.ToString();
                     toInsert[5] = row.Cells["Pipeline_Reference"].Value.ToString();
                     toInsert[6] = row.Cells["revnum"].Value.ToString();
                     toInsert[13] = row.Cells["Size"].Value.ToString();
                     toInsert[22] = row.Cells["Qty"].Value.ToString();
-                    // dt.Rows.InsertAt(toInsert, 5);  //(row.Cells["Description"].Value.ToString());
 
-                    //dt.Rows[i]["itemcode"] = row.Cells["Item_Code"].Value.ToString();
-                    //i++;
                     dt.Rows.Add(toInsert);
                 }
             dt.AcceptChanges();
             this.dataGridView2.DataSource = dt;
-
-
             dataGridView2.Refresh();
             MessageBox.Show("Please make sure to set the 'Take off Method' in the STO report below.", "STO Report Reminder", MessageBoxButtons.OK, MessageBoxIcon.Information);
             contextMenuStrip2.Show(Cursor.Position);
@@ -2066,10 +1783,7 @@ null, this.dataGridView2, new object[] { true });
             pictureBox2.Visible = true;
             backgroundWorker4.RunWorkerAsync();
             backgroundWorker3.RunWorkerAsync();
-
-
         }
-
 
         private void GetExternalData_Top2Bottom()
         {
@@ -2083,7 +1797,6 @@ null, this.dataGridView2, new object[] { true });
                 int fr = foundRows_threaded.Count();
                 if (fr >= 1)
                 {
-
                     if (SPOOLtable_table_threaded.Rows[0]["spool"] != DBNull.Value)
                     {
                         dataGridView1.Rows[i].Cells["Spool Number"].Value = foundRows_threaded[0]["spool"].ToString();
@@ -2105,31 +1818,8 @@ null, this.dataGridView2, new object[] { true });
                         dataGridView1.Rows[i].Cells["linesize"].Value = foundRows_threaded[0]["isoLog_LineSize"].ToString();
                     }
                 }
-                //DataTable ISOLOGtable_table = isologchecker.GetData(dataGridView1.Rows[i].Cells["Pipeline_Reference"].Value.ToString());
-                //if (ISOLOGtable_table.Rows.Count != 0)
-                //{
-                //    dataGridView1.Rows[i].Cells["Material Code"].Value = ISOLOGtable_table.Rows[0]["isoLog_mat"].ToString();
-                //}
-                //if (ISOLOGtable_table.Rows.Count != 0)
-                //{
-                //    dataGridView1.Rows[i].Cells["Source"].Value = "T" + ISOLOGtable_table.Rows[ISOLOGtable_table.Rows.Count - 1]["isoLog_transNum"].ToString();
-                //}
-                //if (ISOLOGtable_table.Rows.Count == 1)
-                //{
-                //    dataGridView1.Rows[i].Cells["Source"].Value = "T" + ISOLOGtable_table.Rows[0]["isoLog_transNum"].ToString();
-                //}
-                //if (ISOLOGtable_table.Rows.Count >= 2)
-                //{
-                //    dataGridView1.Rows[i].Cells["Source"].Value = "T" + ISOLOGtable_table.Rows[ISOLOGtable_table.Rows.Count - 1]["isoLog_transNum"].ToString() + "-REV";
-                //}
-
             }
-
         }
-
-
-
-
 
         private void GetExternalData_Bottom2Top()
         {
@@ -2143,7 +1833,6 @@ null, this.dataGridView2, new object[] { true });
                 int fr = foundRows_threaded1.Count();
                 if (fr >= 1)
                 {
-
                     if (SPOOLtable_table_threaded.Rows[0]["spool"] != DBNull.Value)
                     {
                         dataGridView1.Rows[i].Cells["Spool Number"].Value = foundRows_threaded1[0]["spool"].ToString();
@@ -2168,23 +1857,6 @@ null, this.dataGridView2, new object[] { true });
                         dataGridView1.Rows[i].Cells["linesize"].Value = foundRows_threaded1[0]["isoLog_LineSize"].ToString();
                     }
                 }
-                //DataTable ISOLOGtable_table1 = isologchecker.GetData(dataGridView1.Rows[i].Cells["Pipeline_Reference"].Value.ToString());
-                //if (ISOLOGtable_table1.Rows.Count != 0)
-                //{
-                //    dataGridView1.Rows[i].Cells["Material Code"].Value = ISOLOGtable_table1.Rows[0]["isoLog_mat"].ToString();
-                //}
-                //if (ISOLOGtable_table1.Rows.Count != 0)
-                //{
-                //    dataGridView1.Rows[i].Cells["Source"].Value = "T" + ISOLOGtable_table1.Rows[ISOLOGtable_table1.Rows.Count - 1]["isoLog_transNum"].ToString();
-                //}
-                //if (ISOLOGtable_table1.Rows.Count == 1)
-                //{
-                //    dataGridView1.Rows[i].Cells["Source"].Value = "T" + ISOLOGtable_table1.Rows[0]["isoLog_transNum"].ToString();
-                //}
-                //if (ISOLOGtable_table1.Rows.Count >= 2)
-                //{
-                //    dataGridView1.Rows[i].Cells["Source"].Value = "T" + ISOLOGtable_table1.Rows[ISOLOGtable_table1.Rows.Count - 1]["isoLog_transNum"].ToString() + "-REV";
-                //}
             }
         }
 
@@ -2205,11 +1877,8 @@ null, this.dataGridView2, new object[] { true });
 
         private void button1_MouseEnter(object sender, EventArgs e)
         {
-
             //if (this.Cursor != Cursors.WaitCursor)
             //    Cursor.Current = Cursors.Hand;
-
-
         }
 
         private void button1_MouseLeave(object sender, EventArgs e)
@@ -2223,14 +1892,12 @@ null, this.dataGridView2, new object[] { true });
             dataTable3.AcceptChanges();
             DataTable dtFromGrid = new DataTable();
             dtFromGrid = (dataGridView1.DataSource as DataTable).Copy();
-
             List<DataRow> RowsToDelete = new List<DataRow>();
             foreach (DataRow row in dtFromGrid.Rows)
                 if (row["Group"].ToString() != null &&
                      row["Group"].ToString().Contains("SUPPORTS")) RowsToDelete.Add(row);
             foreach (DataRow row in RowsToDelete) dtFromGrid.Rows.Remove(row);
             RowsToDelete.Clear();
-
             try
             {
                 dtFromGrid.Columns.Remove("Material Code");
@@ -2244,7 +1911,6 @@ null, this.dataGridView2, new object[] { true });
                 ds.Tables.Clear();
                 ds.Tables.Add(dtFromGrid);
                 ExportDataSetToExcelAndMove(ds, jobnum + "_" + trans);
-
             }
             catch { }
         }
@@ -2254,14 +1920,12 @@ null, this.dataGridView2, new object[] { true });
             dataTable3.AcceptChanges();
             DataTable dtFromGrid = new DataTable();
             dtFromGrid = (dataGridView1.DataSource as DataTable).Copy();
-
             List<DataRow> RowsToDelete = new List<DataRow>();
             foreach (DataRow row in dtFromGrid.Rows)
                 if (row["Group"].ToString() != null &&
                      row["Group"].ToString().Contains("EREC") || row["Group"].ToString().Contains("SUPPORTS")) RowsToDelete.Add(row);
             foreach (DataRow row in RowsToDelete) dtFromGrid.Rows.Remove(row);
             RowsToDelete.Clear();
-
             try
             {
                 dtFromGrid.Columns.Remove("Material Code");
@@ -2275,7 +1939,6 @@ null, this.dataGridView2, new object[] { true });
                 ds.Tables.Clear();
                 ds.Tables.Add(dtFromGrid);
                 ExportDataSetToExcelAndMove(ds, jobnum + "_" + trans);
-
             }
             catch { }
         }
@@ -2358,7 +2021,6 @@ null, this.dataGridView2, new object[] { true });
                             newtextmid = "-09";
                             break;
                     }
-
                     row.Cells["Piecemark"].Value = replaceing.Substring(row.Cells["Piecemark"].Value.ToString().Length - 2, 2).Replace(lastsegment, firstsegment + newtextmid + newtext);
                 }
                 catch
@@ -2408,8 +2070,6 @@ null, this.dataGridView2, new object[] { true });
                         case "-9":
                             newtext = "-09";
                             break;
-
-
                     }
                     row.Cells["Pipeline_Reference"].Value = replaceing.Substring(row.Cells["Pipeline_Reference"].Value.ToString().Length - 2, 2).Replace(lastsegment, firstsegment + newtext);
                 }
@@ -2426,26 +2086,16 @@ null, this.dataGridView2, new object[] { true });
             {
                 try
                 {
-
                     vlvfilter = vlvfilter.ToUpper();
                     //tagornum = tagornum.ToUpper();
-
                     string descfiltercheck = row.Cells["Description"].Value.ToString();
                     if (descfiltercheck.Contains(vlvfilter))
                     {
-
-
                         row.Cells["Tag"].Value = row.Cells["Item_Code"].Value.ToString();
-
-
                     }
-                    
                 }
-
-
                 catch
                 { }
-
             }
         }
 
@@ -2457,28 +2107,18 @@ null, this.dataGridView2, new object[] { true });
             {
                 try
                 {
-
                     vlvfilter = vlvfilter.ToUpper();
                     tagornum = tagornum.ToUpper();
-
                     string descfiltercheck = row.Cells["Description"].Value.ToString();
                     if (descfiltercheck.Contains(vlvfilter))
                     {
-
-
                         int theydidanum = Convert.ToInt32(tagornum);
                         string itemtagnew = row.Cells["Description"].Value.ToString();
                         row.Cells["Tag"].Value = itemtagnew.Substring(0, theydidanum);
-
-
                     }
-
                 }
-
-
                 catch
                 { }
-
             }
         }
 
@@ -2490,28 +2130,18 @@ null, this.dataGridView2, new object[] { true });
             {
                 try
                 {
-
                     vlvfilter = vlvfilter.ToUpper();
                     tagornum = tagornum.ToUpper();
-
                     string descfiltercheck = row.Cells["Description"].Value.ToString();
                     if (descfiltercheck.Contains(vlvfilter))
                     {
-
-
                                     int theydidanum = Convert.ToInt32(tagornum);
                                     string itemtagnew = row.Cells["Description"].Value.ToString();
                                     row.Cells["Tag"].Value = itemtagnew.Substring(itemtagnew.Length - theydidanum);
-                                
-
                     }
-                    
                 }
-
-
                 catch
                 { }
-
             }
         }
 
@@ -2520,34 +2150,77 @@ null, this.dataGridView2, new object[] { true });
             string vlvfilter = Microsoft.VisualBasic.Interaction.InputBox("Type the string of characters to filter for; ex: 'VA', 'VLV', 'Valve'.", "Valve Tags", "");
             string tagornumstart = Microsoft.VisualBasic.Interaction.InputBox("Type the character position to start from.", "Valve Tags Start Position", "Default");
             string tagornumend = Microsoft.VisualBasic.Interaction.InputBox("Type the length of characters to go from the start position.", "Valve Tags End Position", "Default");
-
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 try
                 {
-
                     vlvfilter = vlvfilter.ToUpper();
                     //tagornum = tagornum.ToUpper();
-
                     string descfiltercheck = row.Cells["Description"].Value.ToString();
                     if (descfiltercheck.Contains(vlvfilter))
                     {
-
-
                         int theydidanumstart = Convert.ToInt32(tagornumstart);
                         int theydidanumend = Convert.ToInt32(tagornumend);
                         string itemtagnew = row.Cells["Description"].Value.ToString();
                         row.Cells["Tag"].Value = itemtagnew.Substring(theydidanumstart-1, theydidanumstart);
-
-
                     }
-
                 }
-
-
                 catch
                 { }
+            }
+        }
 
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+        }
+
+        private void toolStripMenuItem14_Click_1(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                try
+                {
+                    string replaceing = row.Cells["Piecemark"].Value.ToString();
+                    string lastsegment = row.Cells["Piecemark"].Value.ToString().Substring(row.Cells["Piecemark"].Value.ToString().Length - 2, 2);
+                    string firstsegment = row.Cells["Piecemark"].Value.ToString().Substring(0, row.Cells["Piecemark"].Value.ToString().Length - 2);
+                    string newtext = "";
+                    switch (lastsegment)
+                    {
+                        default:
+                            newtext = lastsegment;
+                            break;
+                        case "-1":
+                            newtext = "-01";
+                            break;
+                        case "-2":
+                            newtext = "-02";
+                            break;
+                        case "-3":
+                            newtext = "-03";
+                            break;
+                        case "-4":
+                            newtext = "-04";
+                            break;
+                        case "-5":
+                            newtext = "-05";
+                            break;
+                        case "-6":
+                            newtext = "-06";
+                            break;
+                        case "-7":
+                            newtext = "-07";
+                            break;
+                        case "-8":
+                            newtext = "-08";
+                            break;
+                        case "-9":
+                            newtext = "-09";
+                            break;
+                    }
+                    row.Cells["Piecemark"].Value = replaceing.Substring(row.Cells["Piecemark"].Value.ToString().Length - 2, 2).Replace(lastsegment, firstsegment + newtext);
+                }
+                catch
+                { }
             }
         }
 
