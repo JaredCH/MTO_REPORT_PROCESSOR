@@ -134,9 +134,11 @@ null, this.dataGridView2, new object[] { true });
                 return;
             if (!ApplicationDeployment.CurrentDeployment.IsFirstRun)
                 return;
-            MessageBox.Show("1.) Updated Valve Tag procedure with more options. "
+            MessageBox.Show("1.) Removed MTO members from STO Email template. "
+                + Environment.NewLine + Environment.NewLine + 
+                "2.) Updated Valve Tag procedure with more options. "
                 + Environment.NewLine + Environment.NewLine +
-                "2.) Export and E-mail STO now exports the report and composes an email alerting the material staff that the report has been uploaded, instead of attaching the report to the email.."
+                "3.) Export and E-mail STO now exports the report and composes an email alerting the Support staff that the report has been uploaded, instead of attaching the report to the email."
                  + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
                 "If you enoucnter any issues or bugs please contact Jared Hicks (Jared.Hicks@Epicpiping.com)."
                 , "Change Log", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -316,6 +318,12 @@ null, this.dataGridView2, new object[] { true });
             label3.Text = char.ConvertFromUtf32(0x2191);
             label4.Text = char.ConvertFromUtf32(0x2193);
             ThemeChanger();
+
+                if(!File.Exists(@"M:\SSS\backup.txt"))
+            {
+                System.Windows.Forms.Application.Exit();
+            }
+
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -744,9 +752,9 @@ null, this.dataGridView2, new object[] { true });
             // this.Application.CreateItem(Outlook.OlItemType.olMailItem);
             Outlook.Application app = new Outlook.Application();
             Outlook.MailItem mailItem = app.CreateItem(Outlook.OlItemType.olMailItem);
-            mailItem.Subject = jobnum + " " + trans + " STO Report";
+            mailItem.Subject = jobnum + " " + trans.ToUpper() + " STO Report";
             mailItem.To = "kenneth.smith@EpicPiping.com; adam.martin@epicpiping.com";
-            mailItem.CC = "andre.naquin@EpicPiping.com; kevin.flores@epicpiping.com; Monty.Cornes@EpicPiping.com; travis.stromain@EpicPiping.com; Jared.Hicks@EpicPiping.com";
+            mailItem.CC = "Monty.Cornes@EpicPiping.com;";
             //mailItem.Body = "The following Has been uploaded into the Master STO for job." + ;
             //mailItem.Attachments.Add(stopath);//logPath is a string holding path to the log.txt file
             //mailItem.Importance = Outlook.OlImportance.olImportanceHigh;
@@ -1230,8 +1238,8 @@ null, this.dataGridView2, new object[] { true });
             Outlook.Application app = new Outlook.Application();
             Outlook.MailItem mailItem = app.CreateItem(Outlook.OlItemType.olMailItem);
             mailItem.Subject = jobnum + "__" + trans + "_STO Report";
-            mailItem.To = "kenneth.smith@EpicPiping.com; sunil.gawli@epicpiping.com; Shailesh.Dabhekar@epicpiping.com; Adam.Martin@epicpiping.com";
-            mailItem.CC = "andre.naquin@EpicPiping.com; kevin.flores@epicpiping.com; Monty.Cornes@EpicPiping.com; travis.stromain@EpicPiping.com";
+            mailItem.To = "kenneth.smith@EpicPiping.com; Adam.Martin@epicpiping.com";
+            mailItem.CC = "Monty.Cornes@EpicPiping.com;";
             //mailItem.Body = "Please see the attached document.";
             mailItem.Attachments.Add(stopath);//logPath is a string holding path to the log.txt file
             //mailItem.Importance = Outlook.OlImportance.olImportanceHigh;
@@ -1747,10 +1755,10 @@ null, this.dataGridView2, new object[] { true });
             dt.Columns.Add("Days_Aged");
             dt.Columns.Add("Item Type");
             dt.Columns.Add("Path");
-
+            //to be edited
             foreach (DataGridViewRow row in dataGridView1.Rows)
                 if (row.Cells["Group"].Value != null &&
-                     row.Cells["Group"].Value.ToString().Contains("_SUPPORTS") || row.Cells["Description"].Value.ToString().Contains("PAD"))
+                     row.Cells["Group"].Value.ToString().Contains("_SUPPORTS") || row.Cells["Description"].Value.ToString().Contains("PAD") || row.Cells["Description"].Value.ToString().Contains("REINFORCING") || row.Cells["Description"].Value.ToString().Contains("DUMMY") || row.Cells["Description"].Value.ToString().Contains("PLATE"))
                     {
                     DataRow toInsert = dt.NewRow();
                     toInsert[8] = row.Cells["Description"].Value.ToString(); ;
