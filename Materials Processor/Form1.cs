@@ -1755,7 +1755,7 @@ null, this.dataGridView2, new object[] { true });
             dt.Columns.Add("Days_Aged");
             dt.Columns.Add("Item Type");
             dt.Columns.Add("Path");
-            //to be edited
+            //to be edited 
             foreach (DataGridViewRow row in dataGridView1.Rows)
                 if (row.Cells["Group"].Value != null &&
                      row.Cells["Group"].Value.ToString().Contains("_SUPPORTS") || row.Cells["Description"].Value.ToString().Contains("PAD") || row.Cells["Description"].Value.ToString().Contains("REINFORCING") || row.Cells["Description"].Value.ToString().Contains("DUMMY") || row.Cells["Description"].Value.ToString().Contains("PLATE"))
