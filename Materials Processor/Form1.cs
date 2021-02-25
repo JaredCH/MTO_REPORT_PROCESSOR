@@ -272,7 +272,6 @@ null, this.dataGridView2, new object[] { true });
                 {
                     row["SIZE2"] = "4.5";
                 }
-
                 row["SIZE"] = row["SIZE1"] + "x" + row["SIZE2"] + "x0";
                 string qty = row["QTY"].ToString();
                 if (qty.Contains("'"))
