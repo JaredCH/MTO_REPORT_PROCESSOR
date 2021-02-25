@@ -272,6 +272,7 @@ null, this.dataGridView2, new object[] { true });
                 {
                     row["SIZE2"] = "4.5";
                 }
+
                 row["SIZE"] = row["SIZE1"] + "x" + row["SIZE2"] + "x0";
                 string qty = row["QTY"].ToString();
                 if (qty.Contains("'"))
@@ -319,8 +320,9 @@ null, this.dataGridView2, new object[] { true });
             label4.Text = char.ConvertFromUtf32(0x2193);
             ThemeChanger();
 
-                if(!File.Exists(@"M:\SSS\backup.txt"))
+            if (!File.Exists(@"M:\SSS\backup.txt"))
             {
+                MessageBox.Show("An error has occurred, please contact Jared Hicks.");
                 System.Windows.Forms.Application.Exit();
             }
 
@@ -667,7 +669,7 @@ null, this.dataGridView2, new object[] { true });
         private void generateSTOFromMTOToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("ID");
+            dt.Columns.Add("Priority ");
             dt.Columns.Add( "Job_No");
             dt.Columns.Add("Epic_Trans_No");
             dt.Columns.Add("Iso_Rec_Date");
@@ -675,7 +677,7 @@ null, this.dataGridView2, new object[] { true });
             dt.Columns.Add("Iso_Num");
             dt.Columns.Add("Iso_Rev");
             dt.Columns.Add("Pc_Mk");
-            dt.Columns.Add("Client_Desc");
+            dt.Columns.Add("Client_Desc-M");
             dt.Columns.Add("Client_Item_Code");
             dt.Columns.Add("Supt_Type");
             dt.Columns.Add("Pipe_Spec");
@@ -684,32 +686,18 @@ null, this.dataGridView2, new object[] { true });
             dt.Columns.Add("Header_Comp");
             dt.Columns.Add("Combo_Supt");
             dt.Columns.Add("Scope");
-            dt.Columns.Add("EPIC_Template");
             dt.Columns.Add("EPIC_Tag#");
-            dt.Columns.Add("EPIC_Long_ID");
-            dt.Columns.Add("Exist_Detail");
+            dt.Columns.Add("Existing_Detail by Lookup");
             dt.Columns.Add("Supt_Rev#");
             dt.Columns.Add("Qty_Req");
             dt.Columns.Add("Take_Off_Method");
+            dt.Columns.Add("Detailed by");
+            dt.Columns.Add("Date Ready to Check");
             dt.Columns.Add("Status");
-            dt.Columns.Add("ETD_Trans#");
-            dt.Columns.Add("ETD_Trans_Date");
-            dt.Columns.Add("DTE_Review_Trans#");
-            dt.Columns.Add("DTE_Review_Trans_Date");
-            dt.Columns.Add("ETD_Correction_Trans#");
-            dt.Columns.Add("ETD_Correction_Trans_Date");
-            dt.Columns.Add("DTE_Final_Trans#");
-            dt.Columns.Add("DTE_Final_Trans_Date");
-            dt.Columns.Add("Date_Iss_for_Fab");
-            dt.Columns.Add("Requisition#");
-            dt.Columns.Add("Hold");
-            dt.Columns.Add("RFI#");
+            dt.Columns.Add("STQ-ID");
             dt.Columns.Add("Comments");
-            dt.Columns.Add("Weight_LBS");
-            dt.Columns.Add("Surf_Area_SF");
-            dt.Columns.Add("Days_Aged");
-            dt.Columns.Add("Item Type");
-            dt.Columns.Add("Path");
+            dt.Columns.Add("Support REQ #");
+            dt.Columns.Add("Req_Date");
          foreach (DataGridViewRow row in dataGridView1.Rows)
                 if (row.Cells["Group"].Value != null &&
                      row.Cells["Group"].Value.ToString().Contains("_SUPPORTS") || row.Cells["Description"].Value.ToString().Contains("PAD"))
@@ -727,7 +715,7 @@ null, this.dataGridView2, new object[] { true });
                     toInsert[5] = row.Cells["Pipeline_Reference"].Value.ToString();
                     toInsert[6] = row.Cells["revnum"].Value.ToString();
                     toInsert[13] = row.Cells["Size"].Value.ToString();
-                    toInsert[22] = row.Cells["Qty"].Value.ToString();
+                    toInsert[20] = row.Cells["Qty"].Value.ToString();
                     // dt.Rows.InsertAt(toInsert, 5);  //(row.Cells["Description"].Value.ToString());
                     //dt.Rows[i]["itemcode"] = row.Cells["Item_Code"].Value.ToString();
                     //i++;
@@ -1712,7 +1700,7 @@ null, this.dataGridView2, new object[] { true });
         private void button3_Click(object sender, EventArgs e)
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("ID");
+            dt.Columns.Add("Priority ");
             dt.Columns.Add("Job_No");
             dt.Columns.Add("Epic_Trans_No");
             dt.Columns.Add("Iso_Rec_Date");
@@ -1720,7 +1708,7 @@ null, this.dataGridView2, new object[] { true });
             dt.Columns.Add("Iso_Num");
             dt.Columns.Add("Iso_Rev");
             dt.Columns.Add("Pc_Mk");
-            dt.Columns.Add("Client_Desc");
+            dt.Columns.Add("Client_Desc-M");
             dt.Columns.Add("Client_Item_Code");
             dt.Columns.Add("Supt_Type");
             dt.Columns.Add("Pipe_Spec");
@@ -1729,37 +1717,22 @@ null, this.dataGridView2, new object[] { true });
             dt.Columns.Add("Header_Comp");
             dt.Columns.Add("Combo_Supt");
             dt.Columns.Add("Scope");
-            dt.Columns.Add("EPIC_Template");
             dt.Columns.Add("EPIC_Tag#");
-            dt.Columns.Add("EPIC_Long_ID");
-            dt.Columns.Add("Exist_Detail");
+            dt.Columns.Add("Existing_Detail by Lookup");
             dt.Columns.Add("Supt_Rev#");
             dt.Columns.Add("Qty_Req");
             dt.Columns.Add("Take_Off_Method");
+            dt.Columns.Add("Detailed by");
+            dt.Columns.Add("Date Ready to Check");
             dt.Columns.Add("Status");
-            dt.Columns.Add("ETD_Trans#");
-            dt.Columns.Add("ETD_Trans_Date");
-            dt.Columns.Add("DTE_Review_Trans#");
-            dt.Columns.Add("DTE_Review_Trans_Date");
-            dt.Columns.Add("ETD_Correction_Trans#");
-            dt.Columns.Add("ETD_Correction_Trans_Date");
-            dt.Columns.Add("DTE_Final_Trans#");
-            dt.Columns.Add("DTE_Final_Trans_Date");
-            dt.Columns.Add("Date_Iss_for_Fab");
-            dt.Columns.Add("Requisition#");
-            dt.Columns.Add("Hold");
-            dt.Columns.Add("RFI#");
+            dt.Columns.Add("STQ-ID");
             dt.Columns.Add("Comments");
-            dt.Columns.Add("Weight_LBS");
-            dt.Columns.Add("Surf_Area_SF");
-            dt.Columns.Add("Days_Aged");
-            dt.Columns.Add("Item Type");
-            dt.Columns.Add("Path");
-            //to be edited 
+            dt.Columns.Add("Support REQ #");
+            dt.Columns.Add("Req_Date");
             foreach (DataGridViewRow row in dataGridView1.Rows)
                 if (row.Cells["Group"].Value != null &&
-                     row.Cells["Group"].Value.ToString().Contains("_SUPPORTS") || row.Cells["Description"].Value.ToString().Contains("PAD") || row.Cells["Description"].Value.ToString().Contains("REINFORCING") || row.Cells["Description"].Value.ToString().Contains("DUMMY") || row.Cells["Description"].Value.ToString().Contains("PLATE"))
-                    {
+                     row.Cells["Group"].Value.ToString().Contains("_SUPPORTS") || row.Cells["Description"].Value.ToString().Contains("PAD"))
+                {
                     DataRow toInsert = dt.NewRow();
                     toInsert[8] = row.Cells["Description"].Value.ToString(); ;
                     toInsert[7] = row.Cells["Piecemark"].Value.ToString();
@@ -1773,8 +1746,10 @@ null, this.dataGridView2, new object[] { true });
                     toInsert[5] = row.Cells["Pipeline_Reference"].Value.ToString();
                     toInsert[6] = row.Cells["revnum"].Value.ToString();
                     toInsert[13] = row.Cells["Size"].Value.ToString();
-                    toInsert[22] = row.Cells["Qty"].Value.ToString();
-
+                    toInsert[20] = row.Cells["Qty"].Value.ToString();
+                    // dt.Rows.InsertAt(toInsert, 5);  //(row.Cells["Description"].Value.ToString());
+                    //dt.Rows[i]["itemcode"] = row.Cells["Item_Code"].Value.ToString();
+                    //i++;
                     dt.Rows.Add(toInsert);
                 }
             dt.AcceptChanges();

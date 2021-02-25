@@ -23,7 +23,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\epichqfs\Data\Materials\MTO\exe tools\MTO Report Processor\</InstallUrl>
-    <ApplicationRevision>132</ApplicationRevision>
+    <ApplicationRevision>134</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -49,10 +49,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>E99EDADCF64DF40130A28087ED2FD8E7E78BF4FF</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>81C22E6EB3959591BB5E3C1683EAEB488842C713</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Materials Report Processor_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>MTO Report Processor_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -182,6 +182,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Materials Report Processor_TemporaryKey.pfx" />
+    <None Include="MTO Report Processor_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="PD_EDWDataSet.xsc">
       <DependentUpon>PD_EDWDataSet.xsd</DependentUpon>
