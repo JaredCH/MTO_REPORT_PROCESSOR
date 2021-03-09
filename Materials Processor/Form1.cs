@@ -2206,6 +2206,22 @@ null, this.dataGridView2, new object[] { true });
             }
         }
 
+        private void toolStripMenuItem15_Click(object sender, EventArgs e)
+        {
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                try
+                {
+                    string removelast = row.Cells["Piecemark"].Value.ToString();
+                    string leftpcmk = removelast.Substring(0, removelast.Length -1);
+                    row.Cells["Pipeline_Reference"].Value = leftpcmk;
+                }
+                catch
+                { }
+            }
+        }
+
         public static String GetTimestamp(DateTime value)
         {
             return value.ToString("yyyyMMddHHmmssffff");
