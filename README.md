@@ -1,81 +1,9 @@
-# MTO_REPORT_PROCESSOR
-
-
-
-        private void GetExternalData_Top2Bottom()
-        {
-            string fivedigitjobnum_threaded = dataGridView1.Rows[0].Cells["Production_No"].Value.ToString();
-            DataTable SPOOLtable_table_threaded = isologchecker.GetDataBy1(fivedigitjobnum.Substring(fivedigitjobnum.Length - 5, 5));
-            for (int i = 0; i < dataGridView1.RowCount / 2; i++)
-            {
-                string pcmk_threaded = dataGridView1.Rows[i].Cells["Piecemark"].Value.ToString();
-                string find_threaded = "spool_pcmark = '" + pcmk_threaded + "'";
-                DataRow[] foundRows_threaded = SPOOLtable_table_threaded.Select(find);
-                int fr = foundRows_threaded.Count();
-                if (fr >= 1)
-                {
-
-                    if (SPOOLtable_table_threaded.Rows[0]["spool"] != DBNull.Value)
-                    {
-                        dataGridView1.Rows[i].Cells["Spool Number"].Value = foundRows_threaded[0]["spool"].ToString();
-                    }
-                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_recvDate"].ToString() != null)
-                    {
-                        dataGridView1.Rows[i].Cells["recdate"].Value = foundRows_threaded[0]["isoLog_recvDate"].ToString();
-                    }
-                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_LineNum"].ToString() != null)
-                    {
-                        dataGridView1.Rows[i].Cells["linenum"].Value = foundRows_threaded[0]["isoLog_LineNum"].ToString();
-                    }
-                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_revNum"].ToString() != null)
-                    {
-                        dataGridView1.Rows[i].Cells["revnum"].Value = foundRows_threaded[0]["isoLog_revNum"].ToString();
-                    }
-                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_LineSize"].ToString() != null)
-                    {
-                        dataGridView1.Rows[i].Cells["linesize"].Value = foundRows_threaded[0]["isoLog_LineSize"].ToString();
-                    }
-                }
-            }
-        }
-
-
-
-
-
-        private void GetExternalData_Bottom2Top()
-        {
-            string fivedigitjobnum_threaded = dataGridView1.Rows[0].Cells["Production_No"].Value.ToString();
-            DataTable SPOOLtable_table_threaded = isologchecker.GetDataBy1(fivedigitjobnum_threaded.Substring(fivedigitjobnum_threaded.Length - 5, 5));
-            for (int i = dataGridView1.RowCount; i > dataGridView1.RowCount / 2; i++)
-            {
-                string pcmk_threaded = dataGridView1.Rows[i].Cells["Piecemark"].Value.ToString();
-                string find_threaded = "spool_pcmark = '" + pcmk_threaded + "'";
-                DataRow[] foundRows_threaded = SPOOLtable_table_threaded.Select(find_threaded);
-                int fr = foundRows_threaded.Count();
-                if (fr >= 1)
-                {
-
-                    if (SPOOLtable_table_threaded.Rows[0]["spool"] != DBNull.Value)
-                    {
-                        dataGridView1.Rows[i].Cells["Spool Number"].Value = foundRows_threaded[0]["spool"].ToString();
-                    }
-                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_recvDate"].ToString() != null)
-                    {
-                        dataGridView1.Rows[i].Cells["recdate"].Value = foundRows_threaded[0]["isoLog_recvDate"].ToString();
-                    }
-                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_LineNum"].ToString() != null)
-                    {
-                        dataGridView1.Rows[i].Cells["linenum"].Value = foundRows_threaded[0]["isoLog_LineNum"].ToString();
-                    }
-                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_revNum"].ToString() != null)
-                    {
-                        dataGridView1.Rows[i].Cells["revnum"].Value = foundRows_threaded[0]["isoLog_revNum"].ToString();
-                    }
-                    if (SPOOLtable_table_threaded.Rows[0]["isoLog_LineSize"].ToString() != null)
-                    {
-                        dataGridView1.Rows[i].Cells["linesize"].Value = foundRows_threaded[0]["isoLog_LineSize"].ToString();
-                    }
-                }
-            }
-        }
+![MTO RP 1](https://user-images.githubusercontent.com/32394719/177992413-ae94c546-f8d5-47f9-8f8d-a39ed8b6e7a0.PNG)
+![MTO RP 2](https://user-images.githubusercontent.com/32394719/177992414-0beda929-06ba-486a-ac0e-f67f80108f0a.PNG)
+![MTO RP 3](https://user-images.githubusercontent.com/32394719/177992416-65837de2-6a90-44e9-be09-0a93f3cb2549.PNG)
+![MTO RP 4](https://user-images.githubusercontent.com/32394719/177992418-fadc2ba4-34dd-4abd-befb-fc5554df6509.PNG)
+![MTO RP 5](https://user-images.githubusercontent.com/32394719/177992424-7e8d1e65-2f48-422d-a7e7-4c1437bf974f.PNG)
+![MTO RP 6](https://user-images.githubusercontent.com/32394719/177992426-1bbaf33a-1e3d-4b64-8c87-2a5823921349.PNG)
+![MTO_Report_Tool_Example](https://user-images.githubusercontent.com/32394719/177992427-d8de01ac-b7c2-4bba-9fc4-dfe339d8850a.gif)
+![MTO_Report_Tool_Find_and_Replace](https://user-images.githubusercontent.com/32394719/177992460-d35fbb0a-baa9-4c0d-921a-90e198320824.gif)
+![MTO_Report_Tool_Valves](https://user-images.githubusercontent.com/32394719/177992464-2f52f088-9f5c-4adb-b519-9e59fdd4f45b.gif)
